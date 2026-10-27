@@ -160,7 +160,7 @@ sequenceDiagram
 
 | Worker | 資料夾 | 網址 | 綁定 |
 |---|---|---|---|
-| `tongjifan`（前端） | `frontend/` | https://tongjifan.nick12703990.workers.dev | `API` → `tongjifan-api` |
+| `tongjifan`（前端） | `frontend/` | https://tongjifan.guitar-journey.workers.dev | `API` → `tongjifan-api` |
 | `tongjifan-api`（後端） | `backend/` | 不對外使用，只經由前端轉發 | `DB` → D1 `tongjifan` |
 
 - 前端設定 `assets.notFoundHandling: "single-page-application"` 與 `assets.runWorkerFirst: ["/api/*"]`：`/api/*` 進前端 Worker，由它 `env.API.fetch(req)` 原樣轉給後端，其餘路由回傳前端檔案（[Static Assets 路由](https://developers.cloudflare.com/workers/static-assets/routing/single-page-application/)）。

@@ -1,5 +1,5 @@
 # 只鎖會影響正式資料或已印出 QR Code 的檔案，其他路徑不需要指定審查者。
 
-/backend/migrations/ @musingfox
-/data/bins.json      @musingfox
-/.github/            @musingfox
+/backend/migrations/ @cyl-jsl
+/data/bins.json      @cyl-jsl
+/.github/            @cyl-jsl
