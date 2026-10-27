@@ -7,6 +7,9 @@ export default defineConfig({
 		compatibilityDate: "2026-09-25",
 		entrypoint,
 		observability: { enabled: true },
+		// 只經由前端的 service binding 呼叫，不開 workers.dev 與預覽網址
+		workersDev: false,
+		previewUrls: false,
 		env: {
 			DB: bindings.d1({ id: "b768b5e7-71b4-4ef5-88a5-1ce2d69085c3", name: "tongjifan" }),
 		},
