@@ -19,14 +19,18 @@
 
 | 權限 | 負責人 |
 |---|---|
-| 部署兩個 Worker（`bun run deploy`） | Nick（@musingfox）、William（@w71800）、Jin（@cyl-jsl） |
-| 正式 D1：`bun run db:migrate`、任何寫入或刪除 | 只有 Nick |
+| 部署兩個 Worker（`bun run deploy`） | Jin（@cyl-jsl） |
+| 正式 D1：`bun run db:migrate`、任何寫入或刪除 | Jin（@cyl-jsl） |
+
+黑客松結束後，本 repo 由 Jin 從原團隊的 [musingfox/hackathon-puma-for-team](https://github.com/musingfox/hackathon-puma-for-team) fork 出來獨立維護，部署到 Jin 自己的 Cloudflare 帳號（`Cyl.jsl@gmail.com's Account`）。原團隊的正式環境（Nick 的帳號、`tongjifan.nick12703990.workers.dev`）不再由這個 repo 部署，不要對它執行部署或寫入。
+
+`cf` 依資料夾選帳號：repo 根目錄、`backend/`、`frontend/` 已用 `bunx cf auth activate jin` 綁到 Jin 的帳號；換一台機器或另一個 worktree 要重新綁，部署前先用 `bunx cf auth whoami` 確認。
 
 部署負責人用 `/deploy`（`.claude/skills/deploy/`）從 `origin/main` 部署，成功後打 `deploy-*` tag，正式環境跑的就是最新的那個 tag。改了這個 skill 要跑 [evals/deploy-skill/](evals/deploy-skill/README.md) 的 eval，每個案例都要 1.00。
 
 其他人不要執行 `bun run deploy`、`bun run db:migrate`，也不要對正式 D1 寫入或刪除（例如 `cf d1 query ... --sql "DELETE ..."`）；正式資料可能是隊友正在 Demo 的案件。需要上線時請部署負責人處理。
 
-改了 `backend/migrations/` 的 PR，要在說明裡寫出需要 Nick 跑 `db:migrate`。
+改了 `backend/migrations/` 的 PR，要在說明裡寫出合併後要跑 `db:migrate`。
 
 ## 分支與 PR
 
@@ -71,4 +75,4 @@ main 只接受 PR，一律 Squash merge。`ci`（型別、建置、lint、migrat
    ```
 
 3. 畫面：開管理端按「模擬感測器」，待辦出現新案件；點地圖上的桶開市民回報頁送出回報；回管理端指派、完成，市民頁的進度在 2 秒內跟著更新。
-4. 手機：本機測試不經手機；要用手機掃 QR Code 測，請負責人部署後用正式網址 https://tongjifan.nick12703990.workers.dev/b/300 。
+4. 手機：本機測試不經手機；要用手機掃 QR Code 測，請負責人部署後用正式網址 https://tongjifan.ccyisyourbestfriend.workers.dev/b/300 。

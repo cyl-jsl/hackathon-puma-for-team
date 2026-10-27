@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # 部署正式環境
 
-正式網址 https://tongjifan.nick12703990.workers.dev ，兩個 Worker 與綁定見 ARCHITECTURE.md 的「部署」。部署負責人名單在 CLAUDE.md 的「部署」一節。
+正式網址 https://tongjifan.ccyisyourbestfriend.workers.dev ，兩個 Worker 與綁定見 ARCHITECTURE.md 的「部署」。部署負責人名單在 CLAUDE.md 的「部署」一節。
 
 每個版本只從 `origin/main` 的某個 commit 部署，部署成功後打 `deploy-<YYYYMMDD-HHMM>` tag；正式環境跑的永遠是最新的 `deploy-*` tag。
 
@@ -14,7 +14,7 @@ disable-model-invocation: true
 
 ## 部署
 
-1. **確認身分**：`bunx cf auth whoami` 的 `accounts` 裡有 `Nick12703990@gmail.com's Account`，而且 `bunx cf workers deployments list --worker tongjifan` 與 `--worker tongjifan-api` 都列得出部署紀錄。列不出來就是登入了錯的帳號或沒有權限，停下來請使用者處理。（只有個別 Worker 權限的成員用 `cf workers scripts search` 會查到空陣列，以 `deployments list` 為準。）
+1. **確認身分**：`bunx cf auth whoami` 的 `accounts` 裡有 `Cyl.jsl@gmail.com's Account`，而且 `bunx cf workers deployments list --worker tongjifan` 與 `--worker tongjifan-api` 都列得出部署紀錄。列不出來就是登入了錯的帳號或沒有權限，停下來請使用者處理。（只有個別 Worker 權限的成員用 `cf workers scripts search` 會查到空陣列，以 `deployments list` 為準。）
 
 2. **取出要部署的版本**：記下目前的分支，確認工作區乾淨（`git status --short` 沒有輸出），然後：
 
@@ -31,7 +31,7 @@ disable-model-invocation: true
 
    正式環境可能有隊友正在 Demo，這一步的同意只對這一次部署有效。
 
-4. **套用 migration**（只有步驟 3 列出新的 migration 時）：`cd backend && bun install --frozen-lockfile && bun run db:migrate`。這一步需要 D1 權限；`bunx cf d1 list` 回 401 就是沒有，停下來請 Nick 先跑 `db:migrate`，完成後再從步驟 5 繼續。migration 只能往前，套用後舊版程式碼必須還能在新資料表上運作；看到刪除或改名欄位的 SQL 時先問使用者。
+4. **套用 migration**（只有步驟 3 列出新的 migration 時）：`cd backend && bun install --frozen-lockfile && bun run db:migrate`。這一步需要 D1 權限；`bunx cf d1 list` 回 401 就是登入了錯的帳號或 token 過期，停下來請使用者重新登入正式帳號（`bunx cf auth activate jin` 或重新授權），確認後再從步驟 4 繼續。migration 只能往前，套用後舊版程式碼必須還能在新資料表上運作；看到刪除或改名欄位的 SQL 時先問使用者。
 
 5. **先後端、再前端**，兩邊都在乾淨的 `bun install --frozen-lockfile` 之後執行：
 
@@ -45,7 +45,7 @@ disable-model-invocation: true
 6. **驗證正式環境**，只用讀取的請求，不送回報（會寫進正式 D1）：
 
    ```sh
-   U=https://tongjifan.nick12703990.workers.dev
+   U=https://tongjifan.ccyisyourbestfriend.workers.dev
    curl -s -o /dev/null -w '%{http_code}\n' $U/          # 200
    curl -s -o /dev/null -w '%{http_code}\n' $U/b/300     # 200
    curl -s -o /dev/null -w '%{http_code}\n' $U/api/cases # 200

@@ -8,7 +8,7 @@ export default defineConfig({
 		entrypoint,
 		observability: { enabled: true },
 		env: {
-			DB: bindings.d1({ id: "d41bd622-3049-4e7f-9589-68465e19b128", name: "tongjifan" }),
+			DB: bindings.d1({ id: "b768b5e7-71b4-4ef5-88a5-1ce2d69085c3", name: "tongjifan" }),
 		},
 	},
 });

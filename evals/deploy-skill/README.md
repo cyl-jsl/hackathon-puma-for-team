@@ -1,6 +1,6 @@
 # /deploy skill 的 eval
 
-檢查 `.claude/skills/deploy/SKILL.md` 改動後，Claude 是否還照原本的部署規則做：等同意才部署、先後端再前端、只用 GET 驗證、沒有 D1 權限時交給 Nick、拒絕 `--temporary-account`、失敗時回退到上一個 `deploy-*` tag。
+檢查 `.claude/skills/deploy/SKILL.md` 改動後，Claude 是否還照原本的部署規則做：等同意才部署、先後端再前端、只用 GET 驗證、沒有 D1 權限時停下來請使用者重新登入、拒絕 `--temporary-account`、失敗時回退到上一個 `deploy-*` tag。
 
 `skills/deploy` 是指向 `.claude/skills/deploy` 的 symlink，`.claude-plugin/plugin.json` 只是讓 `claude plugin eval` 能載入它的外殼；正式使用時還是輸入 `/deploy`。
 
