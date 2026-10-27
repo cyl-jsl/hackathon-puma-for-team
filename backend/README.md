@@ -10,6 +10,7 @@ bun run db:migrate:local   # 第一次本機開發前，建立本機 D1 資料�
 bun run dev                # 本機 API；前端 dev server 會自動接到這裡
 bun run typecheck
 bun run db:migrate         # 只由部署負責人執行：套用 migrations/ 到正式 D1
+bun run db:migrate:pending # 列出正式 D1 還沒套用的 migration（唯讀，/deploy 步驟 3 用）
 bun run deploy             # 只由部署負責人執行（見 ../CLAUDE.md），用 /deploy
 ```
 

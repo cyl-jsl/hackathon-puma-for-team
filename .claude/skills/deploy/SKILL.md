@@ -10,11 +10,13 @@ disable-model-invocation: true
 
 每個版本只從 `origin/main` 的某個 commit 部署，部署成功後打 `deploy-<YYYYMMDD-HHMM>` tag；正式環境跑的永遠是最新的 `deploy-*` tag。
 
+`deploy-20261024-*` 這幾個 tag 是 fork 前原團隊部署到他們自己環境時打的，不代表這個正式環境跑過的版本：不能當回退目標，最新的 tag 是它們時視為第一次用這個流程。
+
 `cf` 一律用專案裡的版本：`bunx cf ...`（在 `backend/` 或 `frontend/` 內執行）。
 
 ## 部署
 
-1. **確認身分**：`bunx cf auth whoami` 的 `accounts` 裡有 `Cyl.jsl@gmail.com's Account`，而且 `bunx cf workers deployments list --worker tongjifan` 與 `--worker tongjifan-api` 都列得出部署紀錄。列不出來就是登入了錯的帳號或沒有權限，停下來請使用者處理。（只有個別 Worker 權限的成員用 `cf workers scripts search` 會查到空陣列，以 `deployments list` 為準。）
+1. **確認身分**：`bunx cf auth whoami` 的 `accounts` 裡有 `Cyl.jsl@gmail.com's Account`，而且 `bunx cf workers deployments list --worker tongjifan` 與 `--worker tongjifan-api` 都列得出部署紀錄。列不出來就是登入了錯的帳號，停下來請使用者處理。`cf` 依資料夾選帳號，沒綁過的資料夾（新的 clone 或 worktree）會用預設帳號：請使用者在 `backend/` 與 `frontend/` 各跑一次 `bunx cf auth activate jin`（還沒有 `jin` profile 就先 `bunx cf auth create jin --no-device`），再重新確認。
 
 2. **取出要部署的版本**：記下目前的分支，確認工作區乾淨（`git status --short` 沒有輸出），然後：
 
@@ -24,12 +26,12 @@ disable-model-invocation: true
    ```
 
 3. **列出這次會上線的內容**，給使用者看，等使用者明確同意才繼續：
-   - 上一個部署：`git describe --tags --abbrev=0 --match 'deploy-*'`（沒有就是第一次用這個流程）
-   - 新的 commit：`git log --oneline <上一個 tag>..HEAD`
-   - 新的 migration：`git diff --name-only <上一個 tag>..HEAD -- backend/migrations/`
+   - 上一個部署：`git describe --tags --abbrev=0 --match 'deploy-*'`（沒有，或是 `deploy-20261024-*`，就是第一次用這個流程）
+   - 新的 commit：`git log --oneline <上一個 tag>..HEAD`；第一次用這個流程時改列 `git log --oneline -10`
+   - 新的 migration：`cd backend && bun install --frozen-lockfile && bun run db:migrate:pending`，直接問正式 D1 還沒套用哪些；輸出 `[]` 就是沒有
    - main 的 CI 結果：`gh run list --branch main --limit 1`，不是 success 就先問使用者
 
-   正式環境可能有隊友正在 Demo，這一步的同意只對這一次部署有效。
+   這一步的同意只對這一次部署有效。
 
 4. **套用 migration**（只有步驟 3 列出新的 migration 時）：`cd backend && bun install --frozen-lockfile && bun run db:migrate`。這一步需要 D1 權限；`bunx cf d1 list` 回 401 就是登入了錯的帳號或 token 過期，停下來請使用者重新登入正式帳號（`bunx cf auth activate jin` 或重新授權），確認後再從步驟 4 繼續。migration 只能往前，套用後舊版程式碼必須還能在新資料表上運作；看到刪除或改名欄位的 SQL 時先問使用者。
 
@@ -67,7 +69,7 @@ disable-model-invocation: true
 
 部署後正式環境壞了，就把上一個 `deploy-*` tag 重新部署一次：
 
-1. 找到上一個好的版本：`git tag --list 'deploy-*' --sort=-refname | head`
+1. 找到上一個好的版本：`git tag --list 'deploy-*' --sort=-refname | head`，跳過 `deploy-20261024-*`；除了它們之外沒有別的 tag，就是沒有可回退的版本，停下來告訴使用者，不要部署那些 tag
 2. `git switch --detach <那個 tag>`，執行「部署」的步驟 1、5、6
 3. 回退不打新的 tag：正式環境暫時跑的是舊 tag，修好後下一次部署會再打新的
 4. 回退不會撤銷 migration。步驟 3 若列過新的 migration，先確認舊版程式碼能在新資料表上運作，不能的話告訴使用者，交給使用者決定
