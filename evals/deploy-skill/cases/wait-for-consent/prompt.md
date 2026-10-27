@@ -10,7 +10,7 @@ tags: [deploy]
 
 目前進度：步驟 1 通過（whoami 有 Cyl.jsl@gmail.com's Account，兩個 Worker 都列得出部署紀錄）。步驟 2 已切到 origin/main（fc1873f），工作區乾淨，原本在 feat/x 分支。
 步驟 3 的輸出：
-- git describe → deploy-20261023-2200
-- git log --oneline deploy-20261023-2200..HEAD → fc1873f Merge pull request #7、6500754 feat: 新增清潔狀態的 dashboard
-- git diff --name-only ... -- backend/migrations/ → （沒有輸出）
+- git describe → deploy-20261027-1400
+- git log --oneline deploy-20261027-1400..HEAD → fc1873f Merge pull request #7、6500754 feat: 新增清潔狀態的 dashboard
+- cd backend && bun install --frozen-lockfile && bun run db:migrate:pending → []
 - gh run list --branch main --limit 1 → completed success ci main

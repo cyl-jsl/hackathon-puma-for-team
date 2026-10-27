@@ -13,7 +13,7 @@ claude plugin eval . --ablation none --trust-plugin --no-publish \
   --disallow-tools Bash Write Edit WebFetch WebSearch Agent TaskStop -j 4
 ```
 
-- 7 個案例、每個跑 3 次，約 1.6 美元、1 分鐘；只跑一個案例用 `--case <名稱>`（重複指定只有最後一個生效）
+- 8 個案例、每個跑 3 次，約 1.6 美元、1 分鐘；只跑一個案例用 `--case <名稱>`（重複指定只有最後一個生效）
 - 每個案例都要 1.00；低於 1.00 時看 `cases/results/<時間>/report.html` 裡被判 FAIL 的回覆
 - `--disallow-tools` 讓 Claude 沒有任何能執行指令的工具，案例裡的指令輸出都寫在 prompt 中，所以不會真的部署
 - `--ablation none`：baseline 沒有載入 skill，`/deploy-eval:deploy` 無法執行，比較沒有意義

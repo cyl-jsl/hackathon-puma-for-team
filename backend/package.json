@@ -8,7 +8,8 @@
 		"deploy": "cf deploy",
 		"typecheck": "cf workers types && tsc",
 		"db:migrate": "cf d1 migrations apply b768b5e7-71b4-4ef5-88a5-1ce2d69085c3",
-		"db:migrate:local": "cf d1 migrations apply b768b5e7-71b4-4ef5-88a5-1ce2d69085c3 --local --persist-to .cloudflare/state"
+		"db:migrate:pending": "cf d1 migrations list b768b5e7-71b4-4ef5-88a5-1ce2d69085c3",
+		"db:migrate:local":"cf d1 migrations apply b768b5e7-71b4-4ef5-88a5-1ce2d69085c3 --local --persist-to .cloudflare/state"
 	},
 	"devDependencies": {
 		"@cloudflare/vite-plugin": "beta",
