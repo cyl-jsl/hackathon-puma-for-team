@@ -75,4 +75,4 @@ main 只接受 PR，一律 Squash merge。`ci`（型別、建置、lint、migrat
    ```
 
 3. 畫面：開管理端按「模擬感測器」，待辦出現新案件；點地圖上的桶開市民回報頁送出回報；回管理端指派、完成，市民頁的進度在 2 秒內跟著更新。
-4. 手機：本機測試不經手機；要用手機掃 QR Code 測，請負責人部署後用正式網址 https://tongjifan.guitar-journey.workers.dev/b/300 。
+4. 手機：本機測試不經手機；要用手機掃 QR Code 測，請負責人部署後用正式網址 https://tongjifan.ccyisyourbestfriend.workers.dev/b/300 。

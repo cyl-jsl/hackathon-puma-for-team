@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # 部署正式環境
 
-正式網址 https://tongjifan.guitar-journey.workers.dev ，兩個 Worker 與綁定見 ARCHITECTURE.md 的「部署」。部署負責人名單在 CLAUDE.md 的「部署」一節。
+正式網址 https://tongjifan.ccyisyourbestfriend.workers.dev ，兩個 Worker 與綁定見 ARCHITECTURE.md 的「部署」。部署負責人名單在 CLAUDE.md 的「部署」一節。
 
 每個版本只從 `origin/main` 的某個 commit 部署，部署成功後打 `deploy-<YYYYMMDD-HHMM>` tag；正式環境跑的永遠是最新的 `deploy-*` tag。
 
@@ -45,7 +45,7 @@ disable-model-invocation: true
 6. **驗證正式環境**，只用讀取的請求，不送回報（會寫進正式 D1）：
 
    ```sh
-   U=https://tongjifan.guitar-journey.workers.dev
+   U=https://tongjifan.ccyisyourbestfriend.workers.dev
    curl -s -o /dev/null -w '%{http_code}\n' $U/          # 200
    curl -s -o /dev/null -w '%{http_code}\n' $U/b/300     # 200
    curl -s -o /dev/null -w '%{http_code}\n' $U/api/cases # 200
