@@ -13,5 +13,5 @@ tags: [deploy]
 /b/300 → 200
 /api/cases → 500
 git tag --list 'deploy-*' --sort=-refname | head 的輸出：
-deploy-20261023-2200
-deploy-20261023-1800
+deploy-20261027-1400
+deploy-20261027-1100
