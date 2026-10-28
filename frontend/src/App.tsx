@@ -7,6 +7,7 @@ const Dashboard = lazy(() => import("./admin/Dashboard"));
 const Bins = lazy(() => import("./admin/Bins"));
 const BinMap = lazy(() => import("./citizen/BinMap"));
 const Trash = lazy(() => import("./citizen/Trash"));
+const Entry = lazy(() => import("./entry/Entry"));
 
 // vite.config.ts 在 build 時注入
 declare const __BUILD__: { sha: string; short: string; time: string; iso: string; dev: boolean };
@@ -29,11 +30,15 @@ export default function App() {
   const binsPage = location.pathname === "/bins";
   const finder = location.pathname === "/map";
   const trash = location.pathname === "/trash";
+  const entry = location.pathname === "/entry";
   return (
     <>
       <header className="bar">
-        <a href={bin || finder || trash ? "/map" : "/"} className="brand">桶緝犯</a>
-        {bin || finder || trash ? (
+        {/* 每一頁的「桶緝犯」都回到入口站 */}
+        <a href="/entry" className="brand">桶緝犯</a>
+        {entry ? (
+          <span className="nav" />
+        ) : bin || finder || trash ? (
           <nav className="nav" aria-label="市民端">
             <a href="/map" aria-current={finder ? "page" : undefined}>地圖找桶</a>
             <a href="/trash" aria-current={trash ? "page" : undefined}>家用垃圾</a>
@@ -54,9 +59,9 @@ export default function App() {
         ) : (
           <main className="citizen"><p>網址不完整，請重新掃描桶上的 QR Code。</p></main>
         )
-      ) : trash ? (
+      ) : trash || entry ? (
         <Suspense fallback={<p className="muted loading">載入中…</p>}>
-          <Trash />
+          {trash ? <Trash /> : <Entry />}
         </Suspense>
       ) : (
         <Suspense fallback={<p className="muted loading">{dashboard ? "載入清潔狀態中…" : binsPage ? "載入桶一覽中…" : "載入地圖中…"}</p>}>
