@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<title>桶緝犯品牌識別</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Huninn&family=Noto+Sans+TC:wght@400;700&family=JetBrains+Mono&display=swap">
+<style>
+  /* Layout: dark hero band → paper sections of white specimen cards → dark footer. Single deliberate light look: brand colors are fixed, variants need known grounds. */
+  :root {
+    --ink: #1D2226; --coral: #D2441F; --yellow: #FFD21F; --paper: #F2EFE6;
+    --card: #FFFFFF; --muted: #5F6870; --line: #1D222624; --on-ink: #FFFFFF; --on-ink-muted: #C9D0D6;
+    --code: #E6E9EC; --code-dim: #7D8790; --code-prop: #F08A6B;
+    --shadow: 0 1px 2px #1D222614, 0 8px 24px #1D22260F;
+    --display: "Huninn", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+    --body: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  body { background: var(--paper); color: var(--ink); font: 16px/1.7 var(--body); }
+  .band { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; }
+  .label { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--coral); font-weight: 700; margin: 0 0 12px; }
+  section.band { padding-block: 72px; border-top: 1px solid var(--line); }
+  section h2 { font-size: 34px; margin-bottom: 28px; }
+
+  .hero { background: var(--ink); color: var(--on-ink); text-align: center; padding-block: 88px 80px; }
+  .hero svg { width: 168px; height: 168px; max-width: 100%; filter: drop-shadow(0 0 28px #FFD21F55); }
+  .hero h1 { font-size: 64px; letter-spacing: .12em; margin-top: 20px; }
+  .hero .label { color: var(--yellow); margin-top: 8px; }
+  .hero p.lede { color: var(--on-ink-muted); margin: 16px auto 0; max-width: 34em; }
+
+  .concept { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .annot { position: relative; background: var(--card); border-radius: 24px; padding: 40px; box-shadow: var(--shadow); }
+  .annot img { width: 100%; display: block; }
+  .tag { position: absolute; font-size: 13px; background: var(--ink); color: var(--on-ink); padding: 2px 10px; border-radius: 999px; white-space: nowrap; }
+  .tag::before { content: ""; position: absolute; width: 8px; height: 8px; border-radius: 50%; background: var(--yellow); border: 2px solid var(--ink); top: 50%; transform: translateY(-50%); }
+  .tag.l::before { right: -10px; } .tag.r::before { left: -10px; }
+  .concept .text { display: grid; gap: 14px; max-width: 36em; }
+  .concept .text p { margin: 0; }
+  .concept strong { font-family: var(--display); font-weight: 400; font-size: 18px; margin-right: .5em; }
+
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .card { position: relative; border-radius: 20px; padding: 48px 28px 44px; display: grid; place-items: center; min-height: 220px; transition: transform .2s; }
+  .card:hover { transform: translateY(-3px); }
+  .card.light { background: var(--card); box-shadow: var(--shadow); color: var(--ink); }
+  .card.dark { background: var(--ink); color: var(--on-ink); }
+  .card.wide { grid-column: span 2; }
+  .card img { max-width: 100%; height: auto; }
+  .card .k { position: absolute; top: 16px; left: 20px; font-size: 13px; font-weight: 700; opacity: .7; }
+  .card .f { position: absolute; bottom: 14px; right: 20px; font: 12px var(--mono); opacity: .55; }
+  .fav { display: flex; gap: 24px; align-items: end; flex-wrap: wrap; justify-content: center; }
+  .fav small { display: block; text-align: center; font: 12px var(--mono); opacity: .6; margin-top: 6px; }
+
+  .palette { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .chip { border-radius: 16px; overflow: hidden; background: var(--card); box-shadow: 0 1px 2px #1D222614; }
+  .chip .sw { height: 120px; display: flex; align-items: end; padding: 12px 14px; font: 13px var(--mono); }
+  .chip .meta { padding: 12px 14px 16px; }
+  .chip b { display: block; } .chip span { font-size: 13px; color: var(--muted); }
+
+  .type { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .spec { background: var(--card); border-radius: 20px; padding: 32px; box-shadow: 0 1px 2px #1D222614; }
+  .spec .big { font-family: var(--display); font-size: 64px; line-height: 1.15; }
+  .spec .body-big { font-size: 36px; font-weight: 700; line-height: 1.25; }
+  .spec p { color: var(--muted); margin: 12px 0 0; }
+
+  .dev { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  pre { background: var(--ink); color: var(--code); border-radius: 16px; padding: 24px; overflow-x: auto; font: 13px/1.7 var(--mono); margin: 0; }
+  pre .c { color: var(--code-dim); } pre .s { color: var(--yellow); } pre .p { color: var(--code-prop); }
+  .tree { background: var(--card); border-radius: 16px; padding: 24px; font: 13px/2 var(--mono); box-shadow: 0 1px 2px #1D222614; overflow-x: auto; white-space: nowrap; }
+  .tree span { color: var(--muted); font-family: var(--body); }
+
+  footer { background: var(--ink); color: var(--on-ink-muted); padding-block: 40px; font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  footer img { height: 36px; display: block; }
+
+  .concept > *, .grid > *, .type > *, .dev > *, .palette > * { min-width: 0; }
+  a:focus-visible { outline: 3px solid var(--coral); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { .card { transition: none; } .card:hover { transform: none; } }
+
+  @media (max-width: 760px) {
+    .concept, .type, .dev, .grid { grid-template-columns: 1fr; }
+    .card.wide { grid-column: auto; }
+    .palette { grid-template-columns: repeat(2, 1fr); }
+    .hero h1 { font-size: 44px; }
+    section.band { padding-block: 56px; }
+    .annot { padding: 24px; }
+    .tag { display: none; }
+    .spec .big { font-size: 48px; }
+  }
+</style>
+
+<header class="hero band">
+  <svg viewBox="0 0 64 64" aria-label="桶緝犯標誌" role="img">
+    <path d="M26 4a22 22 0 1 1 0 44a22 22 0 1 1 0-44ZM18 15a2 2 0 0 0 0 4H34a2 2 0 0 0 0-4ZM18 21L19.7 35.2Q20 37 21.8 37H30.2Q32 37 32.3 35.2L34 21Z" fill="#FFFFFF" fill-rule="evenodd"/>
+    <path d="M43.83 38.17L57.83 52.17A4 4 0 0 1 52.17 57.83L38.17 43.83A4 4 0 0 1 43.83 38.17Z" fill="#FFFFFF"/>
+  </svg>
+  <h1>桶緝犯</h1>
+  <p class="label">Brand Identity</p>
+  <p class="lede">把消失的垃圾桶找回來。一支放大鏡，鏡片裡是要找的那個桶。</p>
+</header>
+
+<main>
+  <section class="band">
+    <div class="wrap concept">
+      <div class="annot">
+        <img src="logo-mark.svg" alt="桶緝犯標誌：實心放大鏡，鏡片鏤空出一個垃圾桶">
+        <span class="tag l" style="right:60%;top:12%">鏡片：搜尋範圍</span>
+        <span class="tag l" style="right:64%;top:40%">鏤空的桶：要找回的目標</span>
+        <span class="tag r" style="left:70%;top:72%">把手：搜查</span>
+      </div>
+      <div class="text">
+        <p class="label">Design Concept</p>
+        <h2>找桶，只講這一件事</h2>
+        <p><strong>形狀</strong>一個實心的放大鏡，桶從鏡片裡鏤空出來。只有兩個元素，輪廓從 512px 到 16px 都認得出來。</p>
+        <p><strong>鏤空</strong>桶不是畫上去的，是缺掉的那一塊，對應「消失的垃圾桶」。放在什麼底色上，桶就透出什麼顏色。</p>
+        <p><strong>顏色</strong>標誌只用墨黑一色，深色底改用白色。品牌的橘紅與亮黃留給介面和 App 圖示底色，不放進標誌本身。</p>
+        <p><strong>字型</strong>文字標用 jf open 粉圓（Huninn）並轉成外框路徑。圓潤的筆畫呼應圓頭把手與桶的圓角，也不依賴使用者電腦上的字型。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <p class="label">Logo Variants</p>
+      <h2>七種版本</h2>
+      <div class="grid">
+        <div class="card light wide"><span class="k">完整標誌</span><img src="logo-full.svg" alt="桶緝犯完整標誌" width="480" height="108"><span class="f">logo-full.svg</span></div>
+        <div class="card dark wide"><span class="k">反白（深色底）</span><img src="logo-white.svg" alt="桶緝犯反白標誌" width="480" height="108"><span class="f">logo-white.svg</span></div>
+        <div class="card light"><span class="k">圖形標</span><img src="logo-mark.svg" alt="桶緝犯圖形標" width="128" height="128"><span class="f">logo-mark.svg</span></div>
+        <div class="card light"><span class="k">App 圖示</span><img src="logo-icon.svg" alt="桶緝犯 App 圖示" width="140" height="140"><span class="f">logo-icon.svg</span></div>
+        <div class="card light"><span class="k">文字標</span><img src="logo-wordmark.svg" alt="桶緝犯文字標" width="300" height="67"><span class="f">logo-wordmark.svg</span></div>
+        <div class="card dark"><span class="k">Favicon</span>
+          <div class="fav">
+            <div><img src="favicon.svg" alt="favicon 64px" width="64" height="64"><small>64px</small></div>
+            <div><img src="favicon.svg" alt="favicon 32px" width="32" height="32"><small>32px</small></div>
+            <div><img src="favicon.svg" alt="favicon 16px" width="16" height="16"><small>16×16px</small></div>
+          </div>
+          <span class="f">favicon.svg</span></div>
+        <div class="card light wide"><span class="k">單色（淺色底）</span><img src="logo-black.svg" alt="桶緝犯單色標誌" width="480" height="108"><span class="f">logo-black.svg</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <p class="label">Color Palette</p>
+      <h2>色票</h2>
+      <div class="palette">
+        <div class="chip"><div class="sw" style="background:#1D2226;color:#FFFFFF">#1D2226</div><div class="meta"><b>墨黑 Ink</b><span>標誌唯一的顏色、文字、深色底</span></div></div>
+        <div class="chip"><div class="sw" style="background:#D2441F;color:#FFFFFF">#D2441F</div><div class="meta"><b>橘紅 Coral</b><span>介面焦點、主要按鈕</span></div></div>
+        <div class="chip"><div class="sw" style="background:#FFD21F;color:#1D2226">#FFD21F</div><div class="meta"><b>亮黃 Yellow</b><span>App 圖示底色、強調</span></div></div>
+        <div class="chip"><div class="sw" style="background:#F2EFE6;color:#1D2226;box-shadow:inset 0 -1px #1D222624">#F2EFE6</div><div class="meta"><b>紙色 Paper</b><span>頁面底色</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <p class="label">Typography</p>
+      <h2>字型</h2>
+      <div class="type">
+        <div class="spec"><div class="big">桶緝犯 找桶</div><p>標題：jf open 粉圓 Huninn Regular，標誌文字已轉外框</p></div>
+        <div class="spec"><div class="body-big">市民回報 待辦案件</div><p>內文：Noto Sans TC Regular／Bold。看到滿出來的垃圾桶，掃 QR Code 就能回報。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <p class="label">Developer Reference</p>
+      <h2>開發參考</h2>
+      <div class="dev">
+<pre><span class="c">/* frontend CSS tokens，與 /entry 一致 */</span>
+:root {
+  <span class="p">--ink</span>:    <span class="s">#1D2226</span>;
+  <span class="p">--coral</span>:  <span class="s">#D2441F</span>;
+  <span class="p">--yellow</span>: <span class="s">#FFD21F</span>;
+  <span class="p">--bg</span>:     <span class="s">#F2EFE6</span>;
+  <span class="p">--display</span>: <span class="s">"Huninn", "Noto Sans TC", system-ui</span>;
+}</pre>
+        <div class="tree">assets/logo/<br>
+├── logo-mark.svg　<span>64×64 圖形標（基準幾何）</span><br>
+├── logo-full.svg　<span>320×72 圖形＋文字</span><br>
+├── logo-wordmark.svg　<span>180×40 文字標</span><br>
+├── logo-icon.svg　<span>512×512 App 圖示</span><br>
+├── favicon.svg　<span>16×16 像素格重畫</span><br>
+├── logo-white.svg　<span>深色底用</span><br>
+├── logo-black.svg　<span>淺色底用</span><br>
+└── build_logo.py　<span>重新產生以上 SVG</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="band">
+  <div class="wrap">
+    <img src="logo-white.svg" alt="桶緝犯" width="160" height="36">
+    <span>桶緝犯 Brand Identity · 黑客松「市長，你給我聽好了」題目 #2</span>
+  </div>
+</footer>
+</html>

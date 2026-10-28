@@ -1,32 +1,6 @@
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="32" height="32" rx="7" fill="#FFF8F4"/>
-<path d="M21 21L28 28" stroke-width="4.5" stroke-linecap="round" stroke="#8B7D77"/>
-<path d="M24 13C24 18.799 19.299 23.5 13.5 23.5C7.70101 23.5 3 18.799 3 13C3 7.20101 7.70101 2.5 13.5 2.5C19.299 2.5 24 7.20101 24 13Z" stroke-width="2.5" stroke="#8B7D77"/>
-<mask id="mask0_3_13" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="4" y="3" width="19" height="20">
-<circle cx="13.5" cy="13" r="9.25" fill="white"/>
-</mask>
-<g mask="url(#mask0_3_13)">
-<g filter="url(#filter0_d_3_13)">
-<path d="M7.73627 11.9854L18.5692 10.0753L19.24 18.4866C19.2901 19.1547 18.954 19.5525 18.2318 19.6798L11.3382 20.8953C10.616 21.0227 10.1642 20.7639 9.98276 20.1189L7.73627 11.9854Z" fill="#DB6A41"/>
-<path d="M6.97197 9.37856L17.3474 6.02595" stroke-width="2.6" stroke-linecap="round" stroke="#DB6A41"/>
-<path d="M9.92663 7.13135L9.67186 6.26239C9.53675 5.88004 9.69319 5.61552 10.1412 5.46883L11.9602 4.84346C12.4082 4.69677 12.7056 4.84743 12.8523 5.29543L13.107 6.16439" stroke-width="1.5" stroke-linecap="round" stroke="#DB6A41"/>
-<path d="M11.6634 15.2532C12.0985 15.1764 12.389 14.7615 12.3123 14.3264C12.2356 13.8913 11.8206 13.6007 11.3855 13.6775C10.9504 13.7542 10.6599 14.1691 10.7366 14.6042C10.8133 15.0393 11.2282 15.3299 11.6634 15.2532Z" fill="#FFF8F4"/>
-<path d="M15.9965 14.4891C16.4316 14.4124 16.7222 13.9975 16.6454 13.5623C16.5687 13.1272 16.1538 12.8367 15.7187 12.9134C15.2836 12.9901 14.993 13.4051 15.0698 13.8402C15.1465 14.2753 15.5614 14.5658 15.9965 14.4891Z" fill="#FFF8F4"/>
-<path d="M14.4985 18.6626C15.0424 18.5667 15.3783 17.8938 15.2489 17.1595C15.1194 16.4252 14.5735 15.9078 14.0296 16.0037C13.4857 16.0996 13.1498 16.7725 13.2792 17.5068C13.4087 18.2411 13.9546 18.7585 14.4985 18.6626Z" fill="#FFF8F4"/>
-</g>
-</g>
-<rect x="25.4" y="1.7" width="2.6" height="5.6" rx="1.3" fill="#DB6A41"/>
-<circle cx="26.7" cy="10.2" r="1.3" fill="#DB6A41"/>
-<defs>
-<filter id="filter0_d_3_13" x="3.67163" y="4.0392" width="15.5732" height="18.3876" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dx="-1.5" dy="1"/>
-<feGaussianBlur stdDeviation="0.25"/>
-<feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0.415686 0 0 0 0 0.317647 0 0 0 0 0.270588 0 0 0 0.25 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_3_13"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_3_13" result="shape"/>
-</filter>
-</defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" role="img" aria-label="桶緝犯">
+  <title>桶緝犯</title>
+  <rect width="16" height="16" rx="3.5" fill="#FFFFFF"/>
+  <path d="M7 1a6 6 0 1 1 0 12a6 6 0 1 1 0-12ZM4.5 4a.5 .5 0 0 0 0 1H9.5a.5 .5 0 0 0 0-1ZM4.5 6L5.2 10H8.8L9.5 6Z" fill="#1D2226" fill-rule="evenodd"/>
+  <path d="M12.12 10.28L14.92 13.08A1.3 1.3 0 0 1 13.08 14.92L10.28 12.12A1.3 1.3 0 0 1 12.12 10.28Z" fill="#1D2226"/>
 </svg>

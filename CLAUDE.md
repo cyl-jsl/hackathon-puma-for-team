@@ -12,6 +12,7 @@
 | `data/candidates.json` | 候選點（人流高、附近沒有桶的格子），`uv run etl/candidates.py` 產生，可隨時重跑；管理端地圖的「建議增設」圖層讀這個檔，格式見 ARCHITECTURE.md「資料」 |
 | `data/trucks.json`、`data/itrash.json` | 垃圾車停靠點（`uv run etl/trucks.py` 產生，可隨時重跑）與 iTrash 站點（從官網手抄，座標取自官網內嵌地圖）；`/trash` 讀這兩個檔，格式見 ARCHITECTURE.md「資料」 |
 | `etl/` | 開放資料轉檔（Python，用 `uv` 執行） |
+| `assets/logo/` | 品牌標誌：7 個 SVG 由 `build_logo.py` 產生（用法見檔頭），`brand-showcase.html` 是品牌展示頁；`frontend/public/` 的 favicon 與 apple-touch-icon 從這裡轉出 |
 
 工具：JS 用 `bun`，Cloudflare 用 `cf`（設定檔是各資料夾的 `cloudflare.config.ts`，不是 `wrangler.jsonc`）。
 
