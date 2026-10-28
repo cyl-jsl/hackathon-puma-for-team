@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import itrash from "../../../data/itrash.json";
 import { BINS, binById } from "../shared/api";
+import { LogoMark } from "../shared/Logo";
 import "./entry.css";
 
 // 垃圾車停靠點數；trucks.json 有 1MB，入口站只要一個數字，不打包整份。重跑 etl/trucks.py 後要跟著改
@@ -64,6 +65,7 @@ export default function Entry() {
   return (
     <main className="entry">
       <div className="intro">
+        <p className="lockup"><LogoMark size={44} /><span>桶緝犯</span></p>
         <h1>找桶、回報，<br />讓清潔隊來收。</h1>
         <p>
           開放資料收錄的 <strong>{fmt(BINS.length)}</strong> 個行人垃圾桶<Ref n={2} />，位置、回報與清潔進度都在這裡。

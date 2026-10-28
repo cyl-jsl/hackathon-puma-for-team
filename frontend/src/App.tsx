@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import Citizen from "./citizen/Citizen";
+import { LogoMark } from "./shared/Logo";
 
 // 市民回報頁不需要地圖，拆開載入，手機掃 QR Code 時不必下載 MapLibre
 const Admin = lazy(() => import("./admin/Admin"));
@@ -35,7 +36,7 @@ export default function App() {
     <>
       <header className="bar">
         {/* 每一頁的「桶緝犯」都回到入口站 */}
-        <a href="/entry" className="brand">桶緝犯</a>
+        <a href="/entry" className="brand"><LogoMark />桶緝犯</a>
         {entry ? (
           <span className="nav" />
         ) : bin || finder || trash ? (
