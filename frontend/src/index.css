@@ -31,7 +31,8 @@ button {
 button:disabled { opacity: 0.5; }
 
 .bar { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; padding: 10px 16px; background: var(--ink); color: var(--cream); }
-.brand { color: var(--cream); font-weight: 700; font-size: 18px; text-decoration: none; }
+.brand { display: inline-flex; gap: 8px; align-items: center; color: var(--cream); font-weight: 700; font-size: 18px; text-decoration: none; }
+.brand svg { flex: none; }
 .nav { display: flex; gap: 4px; margin-right: auto; }
 .nav a { color: var(--cream); text-decoration: none; min-height: 36px; display: inline-flex; align-items: center; padding: 0 12px; border-radius: 8px; }
 .nav a[aria-current="page"] { background: var(--yellow); color: var(--ink); font-weight: 700; }

@@ -35,6 +35,7 @@ body:has(.entry) { background: #f2efe6; }
 .intro { display: grid; gap: 10px; max-width: 34em; }
 .intro h1 { font-size: 44px; line-height: 1.2; letter-spacing: .02em; }
 .intro p { margin: 0; font-size: 15px; line-height: 1.75; color: var(--muted); }
+.intro .lockup { display: flex; gap: 12px; align-items: center; margin-bottom: 6px; color: var(--ink); font-family: var(--display); font-size: 34px; line-height: 1; letter-spacing: .06em; }
 .intro p strong { color: var(--ink); font-variant-numeric: tabular-nums; }
 @container (max-width: 560px) { .intro h1 { font-size: 30px; } }
 
