@@ -22,7 +22,9 @@
 .entry a:focus-visible, .entry button:focus-visible, .entry .tbl:focus-visible { outline: 3px solid var(--coral); outline-offset: 2px; }
 .entry h1, .entry h2, .entry h3 { margin: 0; font-family: var(--display); font-weight: 400; text-wrap: balance; }
 .entry p { text-wrap: pretty; }
-@container (max-width: 560px) { .entry { gap: 28px; padding: 24px 16px 40px; } }
+/* .entry 自己就是容器，查不到自己的寬度，外框留白只能用 media query：560px 內容寬加左右各 16px */
+@media (max-width: 592px) { .entry { gap: 28px; padding: 24px 16px 40px; } }
+.nobr { white-space: nowrap; }
 
 /* 另開分頁的連結 */
 .ext svg { display: inline-block; width: .85em; height: .85em; margin-left: 2px; vertical-align: -1px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
@@ -43,7 +45,8 @@
 .entry .handle { width: 120px; height: 14px; border: 6px solid var(--ink); border-bottom: 0; border-radius: 10px 10px 0 0; }
 .entry .lid { width: 100%; height: 16px; background: var(--ink); border-radius: 8px; }
 .entry .body { width: calc(100% - 28px); margin-top: 4px; display: grid; grid-template-columns: 1fr 1fr; background: var(--cream); border: 2px solid var(--ink); border-top: 0; border-radius: 0 0 28px 28px; overflow: hidden; }
-.chute { display: grid; align-content: start; gap: 4px; min-width: 0; padding: 22px 26px 30px; }
+/* 直向 flex：兩格一樣高時，貼紙和開放試用說明都貼齊底部 */
+.chute { display: flex; flex-direction: column; gap: 4px; min-width: 0; padding: 22px 26px 30px; }
 .chute.staff { background: var(--staff); border-left: 2px solid var(--ink); }
 @container (max-width: 560px) {
   .entry .handle { width: 72px; height: 10px; border-width: 5px; }
@@ -61,6 +64,8 @@
 @container (max-width: 360px) { .slot { flex-direction: column; gap: 0; padding-block: 8px; border-radius: 24px; } .slot span { text-align: center; } }
 /* 分隔線畫在內縮的偽元素上，hover 的圓角色塊才不會把線兩端帶彎 */
 .go { position: relative; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 16px; margin-inline: -12px; padding: 16px 12px; border-radius: 12px; text-decoration: none; }
+/* 最後一個入口和底部的貼紙／說明至少隔 14px（margin-top: auto 沒有剩餘空間時是 0） */
+.chute > .go:last-of-type { margin-bottom: 10px; }
 .go + .go::before { content: ""; position: absolute; top: 0; left: 12px; right: 12px; border-top: 1px solid var(--line); }
 .go strong { font-family: var(--display); font-weight: 400; font-size: 22px; }
 .go span { grid-column: 1; font-size: 14px; line-height: 1.6; color: var(--muted); font-variant-numeric: tabular-nums; }
@@ -71,14 +76,14 @@
   .go:hover svg { transform: translateX(4px); stroke: var(--coral); }
 }
 @media (prefers-reduced-motion: reduce) { .go svg { transition: none; } }
+/* 管理端那一格的模擬資料說明：白底細框，膠囊標籤同資料集的「範例資料」；跟市民那一格的黃貼紙對齊位置。虛線留給流程圖的輸入來源 */
+.demo-note { margin: auto 0 0; padding: 12px 14px; background: var(--cream); border: 1px solid var(--line); border-radius: 6px; font-size: 13px; line-height: 1.6; color: var(--muted); }
+.demo-note b { margin-right: 8px; padding: 1px 8px; border: 1px solid var(--ink); border-radius: 999px; font-size: 12px; color: var(--ink); white-space: nowrap; }
 /* 桶身上的 QR Code 貼紙 */
-.sticker { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 6px 14px; margin-top: 14px; padding: 14px; background: var(--yellow); border: 2px solid var(--ink); border-radius: 6px; transform: rotate(-1.2deg); }
-.sticker .qr { grid-row: 1 / span 2; width: 52px; height: 52px; padding: 4px; background: #fff; border: 2px solid var(--ink); border-radius: 4px; }
-.sticker .qr i { display: block; width: 100%; height: 100%; background:
-  linear-gradient(var(--ink) 0 0) 0 0 / 12px 12px no-repeat,
-  linear-gradient(var(--ink) 0 0) 100% 0 / 12px 12px no-repeat,
-  linear-gradient(var(--ink) 0 0) 0 100% / 12px 12px no-repeat,
-  conic-gradient(var(--ink) 25%, transparent 0 50%, var(--ink) 0 75%, transparent 0) 0 0 / 8px 8px; }
+.sticker { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 6px 14px; margin-top: auto; padding: 14px; background: var(--yellow); border: 2px solid var(--ink); border-radius: 6px; transform: rotate(-1.2deg); }
+.sticker .qr-code { grid-row: 1 / span 2; width: 84px; height: 84px; border-radius: 4px; }
+/* 窄螢幕多半就是手機，掃不到自己的螢幕：跟流程區的 .scan 一樣藏起 QR Code，貼紙只留文字 */
+@container (max-width: 760px) { .sticker { grid-template-columns: 1fr; } .sticker .qr-code { display: none; } }
 .sticker p { margin: 0; font-size: 13px; line-height: 1.6; }
 .sticker p b { font-family: var(--display); font-weight: 400; font-size: 16px; }
 .sticker a { font-weight: 700; text-decoration-thickness: 2px; }
@@ -133,8 +138,8 @@
   .tally-head b { font-size: 26px; }
   .tally-arrow { width: 22px; height: 22px; transform: rotate(90deg); }
 }
-/* 開放資料的「點」和官方的「組」是不同單位：虛線框分開放 */
-.other-unit { display: grid; grid-template-columns: minmax(12em, auto) 1fr; gap: 10px 28px; align-items: start; padding: 18px 20px; border: 1.5px dashed var(--ink); border-radius: 12px; }
+/* 開放資料的「點」和官方的「組」是不同單位：放在另一個白底框，不和撤桶陣列畫在一起 */
+.other-unit { display: grid; grid-template-columns: minmax(12em, auto) 1fr; gap: 10px 28px; align-items: start; padding: 18px 20px; background: var(--cream); border: 1px solid var(--line); border-radius: 12px; }
 .other-unit p { margin: 0; font-size: 15px; line-height: 1.7; }
 .other-count { display: grid; gap: 4px; }
 .other-count b { font-family: var(--display); font-weight: 400; font-size: 28px; line-height: 1.1; font-variant-numeric: tabular-nums; }
@@ -237,3 +242,4 @@
 
 .foot { display: flex; flex-wrap: wrap; gap: 8px 20px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
 .foot a { color: var(--ink); font-weight: 500; }
+.foot-ver { margin-left: auto; font: 11px ui-monospace, SFMono-Regular, Menlo, monospace; }
