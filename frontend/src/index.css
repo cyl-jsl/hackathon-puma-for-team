@@ -48,6 +48,10 @@ button:disabled { opacity: 0.5; }
 .version { font: 11px ui-monospace, SFMono-Regular, Menlo, monospace; color: #ffffff80; white-space: nowrap; }
 .tag { font-size: 12px; background: var(--yellow); color: var(--ink); padding: 2px 8px; border-radius: 6px; }
 .tag-short { display: none; }
+/* 入口站很長，頁首固定在頂端，頁內錨點一直按得到 */
+.entry-bar { position: sticky; top: 0; z-index: 5; }
+/* 最窄的手機：錨點縮小內距，頁首才放得進一行 */
+@media (max-width: 380px) { .entry-bar { gap: 8px; } .entry-bar .nav a { padding: 0 8px; } }
 .muted { color: var(--muted); font-size: 13px; }
 /* 只給螢幕閱讀器的文字 */
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
