@@ -1,5 +1,6 @@
 import react from '@vitejs/plugin-react'
 import { execSync } from 'node:child_process'
+import { readFileSync } from 'node:fs'
 import { defineConfig } from 'vite'
 
 import { cloudflare } from "@cloudflare/vite-plugin";
@@ -32,8 +33,11 @@ function build(dev: boolean) {
   }
 }
 
+// 入口站只要垃圾車停靠點數；trucks.json 有 1MB，不打包整份，build 時數好再注入，重跑 etl/trucks.py 不用改程式
+const truckStops: number = JSON.parse(readFileSync(new URL('../data/trucks.json', import.meta.url), 'utf8')).features.length
+
 // https://vite.dev/config/
 export default defineConfig(({ command }) => ({
   plugins: [react(), cloudflare()],
-  define: { __BUILD__: JSON.stringify(build(command === 'serve')) },
+  define: { __BUILD__: JSON.stringify(build(command === 'serve')), __TRUCK_STOPS__: truckStops },
 }))

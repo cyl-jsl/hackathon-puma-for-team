@@ -78,7 +78,7 @@ const BIN_LAYER: LayerProps = {
     "circle-color": [
       "case",
       ["boolean", ["feature-state", "hover"], false],
-      "#211d1d",
+      "#1d2226",
       ["step", ["coalesce", ["feature-state", "level"], 20], "#2f9e4f", 25, "#c4a017", 50, "#e07a2f", 75, "#d64545"],
     ],
     // zoom 只能放在最外層的 interpolate，feature-state 判斷放進每個 stop
@@ -88,7 +88,7 @@ const BIN_LAYER: LayerProps = {
       14, ["case", ["boolean", ["feature-state", "active"], false], 0, ["boolean", ["feature-state", "hover"], false], 8, 4],
       17, ["case", ["boolean", ["feature-state", "active"], false], 0, ["boolean", ["feature-state", "hover"], false], 11, 7],
     ],
-    "circle-stroke-color": "#fff8f4",
+    "circle-stroke-color": "#ffffff",
     "circle-stroke-width": 1,
     "circle-opacity": 0.85,
   },

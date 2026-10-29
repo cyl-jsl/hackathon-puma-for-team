@@ -79,7 +79,7 @@ export default function Bins() {
             <ul className="bin-rows">
               {group.bins.map((bin) => (
                 <li key={bin.id}>
-                  <a href={`/?district=${encodeURIComponent(group.name)}&bin=${bin.id}`}>
+                  <a href={`/admin?district=${encodeURIComponent(group.name)}&bin=${bin.id}`}>
                     <b>#{bin.id}</b>
                     <span>{bin.address}</span>
                     <span className={`intensity ${bin.band}`}>{bin.detail}</span>

@@ -6,7 +6,7 @@
 
 | 資料夾 | 內容 |
 |---|---|
-| `frontend/` | Vite + React + MapLibre GL（@vis.gl/react-maplibre）；`src/admin/` 管理端（`/`、`/status`、`/bins` 桶一覽）、`src/citizen/` 市民端（`/b/<桶編號>`、`/map`、`/trash` 家用垃圾指引）、`src/entry/` 入口站（`/entry`）、`src/shared/` API 呼叫與型別；`worker/` 把 `/api/*` 轉給後端 |
+| `frontend/` | Vite + React + MapLibre GL（@vis.gl/react-maplibre）；`src/admin/` 管理端（`/admin`、`/status`、`/bins` 桶一覽）、`src/citizen/` 市民端（`/b/<桶編號>`、`/map`、`/trash` 家用垃圾指引）、`src/entry/` 入口站（`/entry`，根目錄 `/` 導向這裡）、`src/shared/` API 呼叫與型別；`worker/` 把 `/api/*` 轉給後端 |
 | `backend/` | 後端 Worker，四條 `/api/*` 路由，另有一條本機專用的 `DELETE /api/cases`；`migrations/` 是 D1 資料表 |
 | `data/bins.json` | 桶位，前後端共用；`bin_id` 就是 QR Code 網址上的編號 |
 | `data/candidates.json` | 候選點（人流高、附近沒有桶的格子），`uv run etl/candidates.py` 產生，可隨時重跑；管理端地圖的「建議增設」圖層讀這個檔，格式見 ARCHITECTURE.md「資料」 |
@@ -51,7 +51,7 @@ main 只接受 PR，一律 Squash merge。`ci`（型別、建置、lint、migrat
 1. 第一次開發：`cd backend && bun install && bun run db:migrate:local`
 2. 終端機一：`cd backend && bun run dev`
 3. 終端機二：`cd frontend && bun install && bun run dev`
-4. 開 http://localhost:5173/ （埠號被占用時以終端機印出的網址為準）
+4. 開 http://localhost:5173/ 是入口站，管理端在 http://localhost:5173/admin （埠號被占用時以終端機印出的網址為準）
 
 - 本機 D1 存在 `backend/.cloudflare/state/`，與正式資料分開；要清空就刪掉這個資料夾，再跑一次 `bun run db:migrate:local`。
 - 前端 `/api/*` 回 503、訊息是 `Worker "tongjifan-api" not found`：後端沒在跑。

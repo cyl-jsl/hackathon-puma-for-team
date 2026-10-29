@@ -1,0 +1,500 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-29T03:55:29+00:00",
+  "title": "Design System: 桶緝犯",
+  "extensions": {
+    "colorMeta": {
+      "truck-yellow": {
+        "role": "primary",
+        "displayName": "垃圾車黃",
+        "canonical": "oklch(87.7% 0.174 92.5)",
+        "tonalRamp": [
+          "#0e0b04",
+          "#302500",
+          "#544300",
+          "#7b6401",
+          "#a48609",
+          "#cfaa14",
+          "#e5d090",
+          "#ffeeb1"
+        ]
+      },
+      "overflow-red": {
+        "role": "secondary",
+        "displayName": "滿溢紅",
+        "canonical": "oklch(58.5% 0.185 35.0)",
+        "tonalRamp": [
+          "#1b0301",
+          "#520000",
+          "#811600",
+          "#b2330f",
+          "#de5836",
+          "#fe876a",
+          "#f8c3b5",
+          "#ffe2d6"
+        ]
+      },
+      "red-ink": {
+        "role": "secondary",
+        "displayName": "滿溢紅・字",
+        "canonical": "oklch(52.2% 0.166 34.4)",
+        "tonalRamp": [
+          "#1b0301",
+          "#520000",
+          "#801800",
+          "#b03517",
+          "#d26349",
+          "#f29078",
+          "#f1c5bb",
+          "#ffe5db"
+        ]
+      },
+      "bin-ink": {
+        "role": "neutral",
+        "displayName": "桶身墨",
+        "canonical": "oklch(24.9% 0.011 242.1)",
+        "tonalRamp": [
+          "#090b0d",
+          "#22272b",
+          "#414649",
+          "#62676a",
+          "#868a8d",
+          "#abaeb1",
+          "#d0d1d2",
+          "#eeeeef"
+        ]
+      },
+      "recycled-paper": {
+        "role": "neutral",
+        "displayName": "再生紙",
+        "canonical": "oklch(95.2% 0.012 91.5)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#272625",
+          "#464542",
+          "#676662",
+          "#8b8984",
+          "#b0aea7",
+          "#d2d1cd",
+          "#f0eeea"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "白",
+        "canonical": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#262626",
+          "#454545",
+          "#666666",
+          "#898989",
+          "#aeaeae",
+          "#d1d1d1",
+          "#eeeeee"
+        ]
+      },
+      "muted-ink": {
+        "role": "neutral",
+        "displayName": "淡墨",
+        "canonical": "oklch(51.2% 0.017 244.9)",
+        "tonalRamp": [
+          "#090b0d",
+          "#22272c",
+          "#3f464c",
+          "#5e676f",
+          "#828a92",
+          "#a8afb5",
+          "#ced1d4",
+          "#eceff1"
+        ]
+      },
+      "staff-gray": {
+        "role": "neutral",
+        "displayName": "管理灰",
+        "canonical": "oklch(97.0% 0.002 247.8)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#262627",
+          "#444546",
+          "#656667",
+          "#88898a",
+          "#adaeaf",
+          "#d0d1d1",
+          "#eeeeef"
+        ]
+      },
+      "slot-black": {
+        "role": "neutral",
+        "displayName": "投入口黑",
+        "canonical": "oklch(15.7% 0.007 237.1)",
+        "tonalRamp": [
+          "#0a0b0c",
+          "#242729",
+          "#424648",
+          "#636769",
+          "#868a8d",
+          "#aaafb2",
+          "#cfd1d3",
+          "#eceff0"
+        ]
+      },
+      "status-assigned-amber": {
+        "role": "data",
+        "displayName": "指派琥珀",
+        "canonical": "oklch(74.8% 0.153 85.2)",
+        "tonalRamp": [
+          "#100a01",
+          "#362200",
+          "#5b4000",
+          "#836000",
+          "#ae8100",
+          "#daa505",
+          "#e5ce9f",
+          "#ffecc2"
+        ]
+      },
+      "capacity-full": {
+        "role": "data",
+        "displayName": "容量・滿",
+        "canonical": "oklch(59.7% 0.182 24.5)",
+        "tonalRamp": [
+          "#1b0303",
+          "#510005",
+          "#80151b",
+          "#b13133",
+          "#df5451",
+          "#ff847d",
+          "#f9c1bc",
+          "#ffe1dc"
+        ]
+      },
+      "capacity-high": {
+        "role": "data",
+        "displayName": "容量・高",
+        "canonical": "oklch(68.2% 0.152 52.6)",
+        "tonalRamp": [
+          "#150701",
+          "#441700",
+          "#6e3100",
+          "#9b4e0f",
+          "#cb6c26",
+          "#f39252",
+          "#f2c7ac",
+          "#ffe5ce"
+        ]
+      },
+      "capacity-mid": {
+        "role": "data",
+        "displayName": "容量・中",
+        "canonical": "oklch(71.8% 0.142 91.9)",
+        "tonalRamp": [
+          "#0f0b01",
+          "#332400",
+          "#574200",
+          "#7d6300",
+          "#a58602",
+          "#cdaa33",
+          "#dfd0a5",
+          "#fbeec7"
+        ]
+      },
+      "capacity-low": {
+        "role": "data",
+        "displayName": "容量・低",
+        "canonical": "oklch(61.9% 0.152 149.0)",
+        "tonalRamp": [
+          "#010f04",
+          "#003207",
+          "#00551f",
+          "#177a37",
+          "#35a153",
+          "#6ec57f",
+          "#b8dcbd",
+          "#d9f8dd"
+        ]
+      },
+      "idle-gray": {
+        "role": "data",
+        "displayName": "閒置灰",
+        "canonical": "oklch(60.4% 0.017 54.8)",
+        "tonalRamp": [
+          "#0d0b09",
+          "#2b2522",
+          "#4b433f",
+          "#6d645e",
+          "#928780",
+          "#b6aca6",
+          "#d4d0cd",
+          "#f1eeeb"
+        ]
+      },
+      "candidate-blue": {
+        "role": "data",
+        "displayName": "候選藍",
+        "canonical": "oklch(53.0% 0.188 272.6)",
+        "tonalRamp": [
+          "#050822",
+          "#161666",
+          "#2d3598",
+          "#4656cd",
+          "#697eed",
+          "#90a6ff",
+          "#c3cff9",
+          "#e3edff"
+        ]
+      },
+      "location-blue": {
+        "role": "data",
+        "displayName": "定位藍",
+        "canonical": "oklch(56.3% 0.182 260.6)",
+        "tonalRamp": [
+          "#020a20",
+          "#001f61",
+          "#0d3e92",
+          "#2460c6",
+          "#4a85ed",
+          "#78adff",
+          "#bad2fa",
+          "#dbf0ff"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "細線",
+        "canonical": "#1d222624"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "展示",
+        "purpose": "入口站主標題，Huninn，窄版 30px。"
+      },
+      "headline": {
+        "displayName": "段落標題",
+        "purpose": "入口站各段標題，窄版 24px。"
+      },
+      "title": {
+        "displayName": "小標",
+        "purpose": "入口站卡片標題、入口連結、投入口標籤。"
+      },
+      "ui-heading": {
+        "displayName": "功能頁標題",
+        "purpose": "管理端與市民端的頁面標題。"
+      },
+      "body": {
+        "displayName": "內文",
+        "purpose": "入口站段落，寬度 36–38em。"
+      },
+      "body-ui": {
+        "displayName": "介面內文",
+        "purpose": "功能頁按鈕、輸入框、列表。"
+      },
+      "small": {
+        "displayName": "說明",
+        "purpose": "次要資訊與資料來源。"
+      },
+      "label": {
+        "displayName": "標籤",
+        "purpose": "徽章、狀態膠囊、模擬資料標籤。"
+      }
+    },
+    "shadows": [
+      {
+        "name": "floating",
+        "value": "0 8px 24px #211d1d29",
+        "purpose": "地圖彈出框、下拉選單、搜尋建議清單。"
+      },
+      {
+        "name": "bottom-sheet",
+        "value": "0 -2px 16px #0003",
+        "purpose": "市民地圖底部資訊卡。"
+      },
+      {
+        "name": "map-object",
+        "value": "0 1px 4px #0005",
+        "purpose": "圖釘、定位點；圖例與色階條用 #0002。"
+      },
+      {
+        "name": "toast",
+        "value": "0 4px 12px #0004",
+        "purpose": "地圖上的提示條。"
+      },
+      {
+        "name": "slot-inset",
+        "value": "inset 0 6px 10px #000c, 0 1px 0 #fff",
+        "purpose": "投入口凹槽，唯一的內陰影。"
+      }
+    ],
+    "motion": [
+      {
+        "name": "state",
+        "value": "0.15s ease",
+        "purpose": "箭頭位移、下拉箭頭旋轉、圖釘放大。"
+      },
+      {
+        "name": "pin-pulse",
+        "value": "1.6s ease-out infinite",
+        "purpose": "待處理圖釘向外擴散；prefers-reduced-motion 時停止。"
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "entry-narrow",
+        "value": "560px（container query）"
+      },
+      {
+        "name": "layout-stack",
+        "value": "760px"
+      },
+      {
+        "name": "citizen-max",
+        "value": "480px"
+      },
+      {
+        "name": "entry-max",
+        "value": "1100px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "按鈕",
+      "kind": "button",
+      "refersTo": "button",
+      "description": "預設按鈕：白底墨框，懸停整顆反墨。",
+      "html": "<button class=\"ds-btn\">模擬感測器</button>",
+      "css": ".ds-btn { min-height: 44px; padding: 0 16px; border: 1px solid #1d2226; border-radius: 9px; background: #ffffff; color: #1d2226; font-family: 'Noto Sans TC', system-ui, sans-serif; font-size: 16px; cursor: pointer; } .ds-btn:hover { background: #1d2226; color: #ffffff; } .ds-btn:focus-visible { outline: 3px solid #d2441f; outline-offset: 2px; } .ds-btn:disabled { opacity: .5; }"
+    },
+    {
+      "name": "主要行動按鈕",
+      "kind": "button",
+      "refersTo": "button-cta",
+      "description": "頁面上唯一的主要行動，例如「回報這個桶」。",
+      "html": "<a class=\"ds-cta\" href=\"#\">回報這個桶</a>",
+      "css": ".ds-cta { display: flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 24px; border-radius: 9px; background: #1d2226; color: #ffffff; font-family: 'Noto Sans TC', system-ui, sans-serif; font-size: 18px; font-weight: 700; text-decoration: none; transition: background .15s; } .ds-cta:hover { background: #d2441f; } .ds-cta:focus-visible { outline: 3px solid #d2441f; outline-offset: 2px; }"
+    },
+    {
+      "name": "輸入框",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "白底墨框，16px 字避免 iOS 放大。",
+      "html": "<input class=\"ds-input\" placeholder=\"輸入行政區\">",
+      "css": ".ds-input { min-height: 44px; width: 240px; padding: 0 12px; border: 1px solid #1d2226; border-radius: 9px; background: #ffffff; color: #1d2226; font-family: 'Noto Sans TC', system-ui, sans-serif; font-size: 16px; } .ds-input::placeholder { color: #5f6870; } .ds-input:focus-visible { outline: 3px solid #d2441f; outline-offset: 2px; }"
+    },
+    {
+      "name": "頁首導覽",
+      "kind": "nav",
+      "refersTo": "nav-link-current",
+      "description": "桶身墨頁首，目前所在頁用垃圾車黃，右側是模擬資料標籤。",
+      "html": "<nav class=\"ds-nav\"><b>桶緝犯</b><a href=\"#\" aria-current=\"page\">待辦</a><a href=\"#\">清潔狀態</a><a href=\"#\">桶一覽</a><span class=\"ds-tag\">模擬資料</span></nav>",
+      "css": ".ds-nav { display: flex; gap: 4px; align-items: center; padding: 10px 16px; background: #1d2226; color: #ffffff; font-family: 'Noto Sans TC', system-ui, sans-serif; } .ds-nav b { margin-right: 12px; font-size: 18px; } .ds-nav a { display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 8px; color: #ffffff; text-decoration: none; } .ds-nav a:hover { background: #ffffff26; } .ds-nav a[aria-current=page] { background: #ffd21f; color: #1d2226; font-weight: 700; } .ds-nav a:focus-visible { outline: 3px solid #ffd21f; outline-offset: 2px; } .ds-tag { margin-left: auto; padding: 2px 8px; border-radius: 6px; background: #ffd21f; color: #1d2226; font-size: 12px; }"
+    },
+    {
+      "name": "狀態膠囊",
+      "kind": "chip",
+      "refersTo": "status-open",
+      "description": "待處理、已指派、已完成三種狀態，顏色加文字。",
+      "html": "<span class=\"ds-st ds-st-open\">待處理</span> <span class=\"ds-st ds-st-assigned\">已指派</span> <span class=\"ds-st ds-st-done\">已完成</span>",
+      "css": ".ds-st { display: inline-block; padding: 1px 8px; border: 1px solid #1d2226; border-radius: 999px; font-family: 'Noto Sans TC', system-ui, sans-serif; font-size: 12px; font-weight: 700; } .ds-st-open { background: #d2441f; border-color: #d2441f; color: #ffffff; } .ds-st-assigned { background: #ffd21f; color: #1d2226; } .ds-st-done { background: #1d2226; color: #ffffff; }"
+    },
+    {
+      "name": "案件卡",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "白底細線框，左側 4px 狀態色條，徽章標來源與種類。",
+      "html": "<div class=\"ds-case\"><div class=\"ds-case-row\"><b>#300 萬華區</b><span>12 分鐘</span></div><div class=\"ds-badges\"><span class=\"ds-badge\">感測器</span><span class=\"ds-badge ds-badge-kind\">滿了</span></div></div>",
+      "css": ".ds-case { display: grid; gap: 6px; width: 300px; padding: 12px; border: 1px solid #1d222624; border-left: 4px solid #d2441f; border-radius: 9px; background: #ffffff; color: #1d2226; font-family: 'Noto Sans TC', system-ui, sans-serif; cursor: pointer; } .ds-case:hover { outline: 2px solid #1d2226; } .ds-case-row { display: flex; justify-content: space-between; } .ds-case-row span { color: #5f6870; font-size: 13px; } .ds-badges { display: flex; gap: 6px; } .ds-badge { padding: 2px 8px; border-radius: 6px; background: #1d2226; color: #ffffff; font-size: 12px; } .ds-badge-kind { background: #ffd21f; color: #1d2226; }"
+    },
+    {
+      "name": "投入口",
+      "kind": "custom",
+      "refersTo": "slot",
+      "description": "桶身上凹進去的黑色開口，標示這一格給誰。",
+      "html": "<div class=\"ds-slot\"><b>市民</b><span>找桶、丟家用垃圾</span></div>",
+      "css": ".ds-slot { display: flex; align-items: center; justify-content: center; gap: 10px; width: 320px; height: 52px; border-radius: 26px; background: #0a0d0f; color: #ffffff; box-shadow: inset 0 6px 10px #000c, 0 1px 0 #ffffff; font-family: 'Noto Sans TC', system-ui, sans-serif; } .ds-slot b { font-family: Huninn, 'Noto Sans TC', 'PingFang TC', system-ui, sans-serif; font-weight: 400; font-size: 20px; letter-spacing: .08em; color: #ffd21f; } .ds-slot span { font-size: 13px; color: #c9d0d6aa; }"
+    },
+    {
+      "name": "入口連結",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "桶身裡的一列入口：Huninn 標題、說明、箭頭，懸停染黃、箭頭右移變紅。",
+      "html": "<a class=\"ds-go\" href=\"#\"><strong>地圖找桶</strong><span>開放資料的 661 個行人垃圾桶，找離你最近的一個</span><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M9 5l7 7-7 7\"/></svg></a>",
+      "css": ".ds-go { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 16px; width: 360px; padding: 16px 12px; border-radius: 12px; color: #1d2226; text-decoration: none; font-family: 'Noto Sans TC', system-ui, sans-serif; } .ds-go strong { font-family: Huninn, 'Noto Sans TC', 'PingFang TC', system-ui, sans-serif; font-weight: 400; font-size: 22px; } .ds-go span { grid-column: 1; font-size: 13px; line-height: 1.6; color: #5f6870; } .ds-go svg { grid-column: 2; grid-row: 1 / span 2; width: 22px; height: 22px; fill: none; stroke: #1d2226; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transition: transform .15s; } .ds-go:hover { background: #ffd21f66; } .ds-go:hover svg { transform: translateX(4px); stroke: #d2441f; } .ds-go:focus-visible { outline: 3px solid #d2441f; outline-offset: 2px; }"
+    },
+    {
+      "name": "QR Code 貼紙",
+      "kind": "custom",
+      "refersTo": "qr-sticker",
+      "description": "貼在桶身上、微微歪掉的黃色貼紙。",
+      "html": "<div class=\"ds-sticker\"><span class=\"ds-qr\"><i></i></span><p><b>桶滿了、很髒？</b></p><p>掃桶身上的 QR Code 回報。</p></div>",
+      "css": ".ds-sticker { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 6px 14px; width: 320px; padding: 14px; background: #ffd21f; color: #1d2226; border: 2px solid #1d2226; border-radius: 6px; transform: rotate(-1.2deg); font-family: 'Noto Sans TC', system-ui, sans-serif; } .ds-qr { grid-row: 1 / span 2; width: 52px; height: 52px; padding: 4px; background: #fff; border: 2px solid #1d2226; border-radius: 4px; } .ds-qr i { display: block; width: 100%; height: 100%; background: linear-gradient(#1d2226 0 0) 0 0 / 12px 12px no-repeat, linear-gradient(#1d2226 0 0) 100% 0 / 12px 12px no-repeat, linear-gradient(#1d2226 0 0) 0 100% / 12px 12px no-repeat, conic-gradient(#1d2226 25%, transparent 0 50%, #1d2226 0 75%, transparent 0) 0 0 / 8px 8px; } .ds-sticker p { margin: 0; font-size: 13px; line-height: 1.6; } .ds-sticker p b { font-family: Huninn, 'Noto Sans TC', 'PingFang TC', system-ui, sans-serif; font-weight: 400; font-size: 16px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "路邊的那個桶",
+    "overview": "桶緝犯的介面就是街上那個實體垃圾桶。桶身是墨色的粗線條，頂上有蓋、有提把，正面有黑色的投入口，桶身貼著一張微微歪掉的黃色 QR Code 貼紙。入口站把這個意象畫得最完整：整頁上半就是一個雙投入口的桶，左邊給市民，右邊給管理端。其他頁不畫整個桶，但沿用同樣的材料：墨線勾邊、白色桶身、黃色貼紙、紅色表示「滿了」。\n\n這套系統是**實體的**，不是螢幕上的漂浮卡片。結構靠 1–2px 的墨色線條撐起來，不靠陰影；顏色像貼在桶上的貼紙，一塊一塊實心，不用漸層；狀態一律同時用形狀、顏色和文字表達。密度依頁面而定：入口站留白多、讀起來像一份說明；管理端緊湊、為掃視而排；市民回報頁只有幾個大按鈕。\n\n語氣是公共設施的語氣：白話、清楚、有出處，帶一點街頭的手感（Huninn 的圓頭字、轉了 -1.2° 的貼紙），但不可愛、不賣弄。看起來要像一個認真做出來的公共服務，而不是政府標案網站，也不是新創公司的儀表板。",
+    "keyCharacteristics": [
+      "墨色粗線勾邊，扁平、沒有漸層",
+      "垃圾車黃是貼紙：小面積、實心、標示「這裡」",
+      "滿溢紅只在需要注意時出現",
+      "狀態用形狀＋顏色＋文字三重表達",
+      "圓頭的 Huninn 只當展示字，內文用系統黑體",
+      "只有淺色，沒有深色模式"
+    ],
+    "rules": [
+      {
+        "name": "The Sticker Rule",
+        "body": "垃圾車黃是貼紙，不是油漆。它只出現在有邊界的小區塊上，用來標示「這裡」或「這一個」；不當整頁或整個區段的底色。",
+        "section": "colors"
+      },
+      {
+        "name": "The Red Means Look Rule",
+        "body": "滿溢紅只用來吸引注意：待處理、註腳、焦點、懸停。不拿來當裝飾色塊，也不和容量四級的紅色混用。",
+        "section": "colors"
+      },
+      {
+        "name": "The Red Text Rule",
+        "body": "紅色當文字一律用 `--red-ink`；`--coral` 只當底色、線條與圖形。",
+        "section": "colors"
+      },
+      {
+        "name": "The Light Load Rule",
+        "body": "Huninn 只在入口站載入，而且是進到入口站才動態插入。市民回報頁 `/b/<編號>` 不載入任何外部字型，掃 QR Code 的人不用多等一個網路請求。",
+        "section": "typography"
+      },
+      {
+        "name": "The Display Is Regular Rule",
+        "body": "Huninn 一律用 400 字重；強調靠字級和顏色，不靠加粗。",
+        "section": "typography"
+      },
+      {
+        "name": "The Only Floaters Cast Shadows Rule",
+        "body": "只有浮在地圖或內容上方的東西才有陰影。頁面裡的卡片、按鈕、表格一律平貼，用線條區分。",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** 用 1–2px 桶身墨的線條建立結構，讓介面像一個實體的桶。",
+      "**Do** 把垃圾車黃當貼紙用：小面積、有邊界、標示「這裡」。",
+      "**Do** 狀態一律同時給形狀、顏色和文字（圓形／方塊、紅／黃／墨、「待處理」等字）。",
+      "**Do** 每一頁保留頁首的「模擬資料」標籤，入口站的數字附註腳編號。",
+      "**Do** 數字用 tabular-nums；觸控目標至少 44px（註腳這類行內小目標至少 24px）；懸停樣式包在 `@media (hover: hover)` 裡。",
+      "**Do** 另開分頁的連結加右上箭頭圖示與「（另開分頁）」的隱藏文字。",
+      "**Do** 動態要尊重 `prefers-reduced-motion`，過場維持在 0.15s 左右。",
+      "**Do** 改到功能頁時，順手把舊的珊瑚奶油色票換成垃圾車黃系統。"
+    ],
+    "donts": [
+      "**Don't** 做成市府標案網站：藍白漸層、圖庫照片、輪播橫幅。",
+      "**Don't** 做成 SaaS 儀表板：紫色漸層、玻璃擬態、整排大數字卡片。",
+      "**Don't** 畫可愛的環保插畫：綠葉、地球、會笑的垃圾桶吉祥物。",
+      "**Don't** 走監控科技風：深色底、霓虹線、雷達掃描。",
+      "**Don't** 用陰影撐起頁面裡的卡片；陰影只給浮在上方的東西。",
+      "**Don't** 用垃圾車黃當整頁底色，也不要把滿溢紅當裝飾。",
+      "**Don't** 在市民回報頁載入 Huninn 或任何外部字型。",
+      "**Don't** 把 Huninn 加粗，或拿它排內文。",
+      "**Don't** 用遞減字級排一列不能比較的數字；不同單位的數字要在版面上分開。",
+      "**Don't** 用「圖示＋標題＋段落」的等大卡片當段落結構；條列內容用墨線分隔的清冊列。"
+    ]
+  }
+}
