@@ -82,15 +82,19 @@
 /* 桶身上的 QR Code 貼紙 */
 .sticker { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 6px 14px; margin-top: auto; padding: 14px; background: var(--yellow); border: 2px solid var(--ink); border-radius: 6px; transform: rotate(-1.2deg); }
 .sticker .qr-code { grid-row: 1 / span 2; width: 84px; height: 84px; border-radius: 4px; }
+.sticker-narrow { display: none; }
 /* 窄螢幕多半就是手機，掃不到自己的螢幕：跟流程區的 .scan 一樣藏起 QR Code，貼紙只留文字 */
-@container (max-width: 760px) { .sticker { grid-template-columns: 1fr; } .sticker .qr-code { display: none; } }
+@container (max-width: 760px) { .sticker { grid-template-columns: 1fr; } .sticker .qr-code, .sticker-wide { display: none; } .sticker-narrow { display: block; } }
 .sticker p { margin: 0; font-size: 13px; line-height: 1.6; }
 .sticker p b { font-family: var(--display); font-weight: 400; font-size: 16px; }
 .sticker a { font-weight: 700; text-decoration-thickness: 2px; }
+.sticker .sticker-btn { display: flex; align-items: center; justify-content: center; gap: 4px; min-height: 44px; margin-top: 8px; padding: 0 14px; border: 1px solid var(--ink); border-radius: 9px; background: var(--cream); text-decoration: none; }
 
 /* 產品故事 */
 .story { display: grid; gap: 56px; padding-top: 16px; }
-.sec, .goal { display: grid; gap: 18px; scroll-margin-top: 16px; }
+/* 頁首固定在頂端（56px），錨點跳轉要讓出這段高度 */
+.sec, .goal { display: grid; gap: 18px; scroll-margin-top: 72px; }
+.entry .bin { scroll-margin-top: 72px; }
 .sec > h2 { font-size: 30px; line-height: 1.3; }
 .sec > p { max-width: 36em; margin: 0; font-size: 15px; line-height: 1.8; }
 .entry .src { max-width: 60em; margin: 0; font-size: 13px; line-height: 1.6; color: var(--muted); }
@@ -226,7 +230,7 @@
 
 /* 資料來源 */
 .refs { display: grid; margin: 0; padding: 0; list-style: none; counter-reset: r; border-top: 2px solid var(--ink); }
-.refs li { counter-increment: r; display: grid; grid-template-columns: 28px 1fr auto; align-items: start; gap: 4px 14px; padding: 12px 0; border-bottom: 1px solid var(--line); scroll-margin-top: 16px; }
+.refs li { counter-increment: r; display: grid; grid-template-columns: 28px 1fr auto; align-items: start; gap: 4px 14px; padding: 12px 0; border-bottom: 1px solid var(--line); scroll-margin-top: 72px; }
 .refs li::before { content: counter(r); grid-row: 1 / span 2; font-family: var(--display); font-size: 18px; line-height: 1.3; color: var(--red-ink); }
 /* 跳到這一筆時整列染黃（Entry.tsx 的 markRef）；左右各撐出 12px 讓色塊不貼著序號 */
 .refs li.hit { margin-inline: -12px; padding-inline: 12px; border-radius: 8px; background: var(--hover); }
@@ -235,6 +239,8 @@
 .refs span { font-size: 13px; line-height: 1.6; color: var(--muted); }
 .refs span a { color: var(--ink); }
 .refs em { padding: 1px 8px; border: 1px solid var(--ink); border-radius: 999px; font-size: 12px; font-style: normal; font-weight: 700; white-space: nowrap; }
+/* 只有從註腳跳過來的那一列才需要「回到內文」 */
+.refs li:not(.hit) .back { display: none; }
 .entry .back { grid-column: 2; justify-self: start; display: inline-flex; align-items: center; gap: 4px; min-height: 32px; margin-left: -8px; padding: 0 8px; border: 0; border-radius: 8px; background: none; color: var(--muted); font-size: 13px; }
 .entry .back svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 @media (hover: hover) { .entry .back:hover { background: var(--hover); color: var(--ink); } }

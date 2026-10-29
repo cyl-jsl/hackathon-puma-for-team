@@ -17,6 +17,10 @@ const BEFORE = 2000;
 const NOW = 806;
 const PER_ICON = 20;
 
+// 試玩連結的分頁名稱：回報頁、待辦各開一個分頁，重複點會回到同一個
+const REPORT_TAB = "tongjifan-report";
+const ADMIN_TAB = "tongjifan-admin";
+
 // 標題字型只在入口站用，不放進 index.html，免得掃 QR Code 的回報頁多等一個外部 CSS
 const FONT_HREF = "https://fonts.googleapis.com/css2?family=Huninn&display=swap";
 
@@ -38,10 +42,11 @@ function Go({ href, title, children }: { href: string; title: string; children: 
   );
 }
 
-// 另開分頁的連結：右上箭頭給看得到的人，括號文字給螢幕閱讀器
-function Ext({ href, children }: { href: string; children: ReactNode }) {
+// 另開分頁的連結：右上箭頭給看得到的人，括號文字給螢幕閱讀器。
+// 試玩連結傳 target 名稱，同一種頁面一直開在同一個分頁，不會越開越多；站內頁面不需要 noreferrer
+function Ext({ href, target = "_blank", className, children }: { href: string; target?: string; className?: string; children: ReactNode }) {
   return (
-    <a className="ext" href={href} target="_blank" rel="noreferrer">
+    <a className={className ? `ext ${className}` : "ext"} href={href} target={target} rel={target === "_blank" ? "noreferrer" : undefined}>
       {children}
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16L16 8M9 8h7v7" /></svg>
       <span className="sr-only">（另開分頁）</span>
@@ -192,7 +197,7 @@ export default function Entry() {
         </figure>
       </div>
 
-      <nav className="bin" aria-labelledby="h-entry">
+      <nav className="bin" id="start" aria-labelledby="h-entry">
         <h2 id="h-entry" className="sr-only">選一個入口</h2>
         <div className="handle" aria-hidden="true" />
         <div className="lid" aria-hidden="true" />
@@ -205,7 +210,9 @@ export default function Entry() {
               {/* 真的可以掃：這張就是試玩桶的 QR Code，桌機上拿手機掃就能試 */}
               <Qr url={location.origin + binUrl} />
               <p><b>桶滿了、很髒？</b></p>
-              <p>掃桶上的 QR Code 回報。這張就是桶 {trial} 的，掃描或<Ext href={binUrl}>開啟回報頁</Ext>都能試。</p>
+              {/* 桌機有 QR Code 可掃；窄螢幕藏起 QR Code，改成一顆按鈕大小的連結。兩段用 container query 切換 */}
+              <p className="sticker-wide">掃桶上的 QR Code 回報。這張就是桶 {trial} 的，掃描或<Ext href={binUrl} target={REPORT_TAB}>開啟回報頁</Ext>都能試。</p>
+              <p className="sticker-narrow">桶上會貼一張 QR Code，掃了就能回報。<Ext href={binUrl} target={REPORT_TAB} className="sticker-btn">開啟桶 {trial} 的回報頁</Ext></p>
             </div>
           </section>
           <section className="chute staff" aria-labelledby="h-staff">
@@ -251,7 +258,7 @@ export default function Entry() {
               <p>桶內感測器負責看滿溢，市民負責看感測器看不到的髒亂、損壞。兩邊進同一張待辦，同一個桶還沒處理完的回報併成一件，不會重複派工。</p>
             </div>
             <div className="idea">
-              <h3><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M10 10h20l-2 24H12z" /><path className="fill" d="M12.6 18h14.8l-1.3 16H13.9z" /><path d="M8 10h24M17 6h6" /></svg>滿了才派人，<span className="nobr">但不只信感測器</span></h3>
+              <h3><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M10 10h20l-2 24H12z" /><path className="fill" d="M12.6 18h14.8l-1.3 16H13.9z" /><path d="M8 10h24M17 6h6" /></svg><span><span className="nobr">滿了才派人，</span><wbr /><span className="nobr">但不只信感測器</span></span></h3>
               <p>
                 桃園慈湖 20 組桶用「8 分滿才通知」，市府自述清運人力減少 50%<Ref n={4} />。臺北 112 年也試過，因為蓬鬆垃圾頻繁誤判而沒有採用<Ref n={3} />。所以感測器只是第一道訊號，市民回報與清運結案的紀錄用來交叉校正。
               </p>
@@ -273,13 +280,13 @@ export default function Entry() {
           {/* 流程圖本身就是試玩步驟：有動作的那幾格附上連結，不另寫一份說明 */}
           <ol className="flow">
             <li className="sources">
-              <div className="step in"><b>感測器</b><span>桶內容量超過 8 成，自動通報</span><Ext href={adminUrl}>按「模擬感測器」</Ext></div>
-              <div className="step in"><b>市民</b><span>掃桶上的 QR Code，回報滿了或髒亂</span><Ext href={binUrl}>開桶 {trial} 的回報頁</Ext></div>
+              <div className="step in"><b>感測器</b><span>桶內容量超過 8 成，自動通報</span><Ext href={adminUrl} target={ADMIN_TAB}>按「模擬感測器」</Ext></div>
+              <div className="step in"><b>市民</b><span>掃桶上的 QR Code，回報滿了或髒亂</span><Ext href={binUrl} target={REPORT_TAB}>開桶 {trial} 的回報頁</Ext></div>
             </li>
             <Arrow />
             <li className="step"><em className="st-open">{STATUS_LABEL.open}</em><b>開成一件案件</b><span>同一個桶已有未完成的案件，就併進去</span></li>
             <Arrow />
-            <li className="step"><em className="st-assigned">{STATUS_LABEL.assigned}</em><b>管理端派工</b><span>在待辦地圖上看位置，指派給清潔隊</span><Ext href={adminUrl}>到待辦按「指派」</Ext></li>
+            <li className="step"><em className="st-assigned">{STATUS_LABEL.assigned}</em><b>管理端派工</b><span>在待辦地圖上看位置，指派給清潔隊</span><Ext href={adminUrl} target={ADMIN_TAB}>到待辦按「指派」</Ext></li>
             <Arrow />
             <li className="step"><em className="st-done">{STATUS_LABEL.done}</em><b>清潔隊收完結案</b><span>在待辦按「標記完成」，案件留下回報到結案的時間</span></li>
             <Arrow />
@@ -393,6 +400,7 @@ export default function Entry() {
 
         <footer className="foot">
           <span>黑客松「市長，你給我聽好了」題目 #2 找回消失的垃圾桶</span>
+          <a href="#start">回到入口</a>
           <a href="#flow">回到試玩</a>
           <Ext href="https://github.com/cyl-jsl/hackathon-puma-for-team">GitHub 原始碼</Ext>
           {/* 手機的頁首不放版號，改放這裡 */}

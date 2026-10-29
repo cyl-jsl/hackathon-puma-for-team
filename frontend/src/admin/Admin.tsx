@@ -433,7 +433,8 @@ export default function Admin() {
       <aside className="panel">
         <div className="row">
           <h2>待辦</h2>
-          <button onClick={() => simulateSensor()}>模擬感測器</button>
+          {/* 有選桶就在那個桶開案：入口站的試玩帶 ?bin= 進來，照「按模擬感測器」做才會開在試玩桶 */}
+          <button onClick={() => simulateSensor(selected ?? undefined)}>模擬感測器</button>
           {import.meta.env.DEV && <button onClick={clearAll}>清除案件</button>}
         </div>
         <DistrictSelect value={district} options={DISTRICTS} onChange={setDistrict} />
