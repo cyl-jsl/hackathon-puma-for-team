@@ -33,9 +33,9 @@ const BIN_LAYER: LayerProps = {
   id: "bins",
   type: "circle",
   paint: {
-    "circle-color": ["match", level, "urgent", "#db6a41", "dirty", "#d9a400", "#8a7f78"],
+    "circle-color": ["match", level, "urgent", "#d2441f", "dirty", "#d9a400", "#8a7f78"],
     "circle-radius": ["interpolate", ["linear"], ["zoom"], 11, radius(3, 5), 14, radius(5, 8), 17, radius(9, 12)],
-    "circle-stroke-color": ["case", selected, "#211d1d", "#fff8f4"],
+    "circle-stroke-color": ["case", selected, "#1d2226", "#ffffff"],
     "circle-stroke-width": ["case", selected, 3, 1.5],
   },
 };

@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, type MouseEvent } from "react";
 import Citizen from "./citizen/Citizen";
 import { LogoMark } from "./shared/Logo";
 
@@ -23,6 +23,34 @@ function Version() {
   );
 }
 
+// 根目錄是入口站。舊的管理端網址 /?bin=…&district=… 已經貼在別處，帶參數的轉到 /admin，其餘轉到 /entry
+if (location.pathname === "/") {
+  const q = new URLSearchParams(location.search);
+  history.replaceState(null, "", q.has("bin") || q.has("district") ? `/admin${location.search}` : `/entry${location.hash}`);
+}
+
+// 分頁標題；社群分享預覽讀的是 index.html，這裡只影響分頁與瀏覽紀錄
+function pageTitle(path: string, binId?: string) {
+  if (binId) return `回報桶 ${binId}｜桶緝犯`;
+  const titles: Record<string, string> = {
+    "/entry": "桶緝犯｜找桶、回報，讓清潔隊來收",
+    "/map": "地圖找桶｜桶緝犯",
+    "/trash": "家用垃圾｜桶緝犯",
+    "/status": "清潔狀態｜桶緝犯",
+    "/bins": "桶一覽｜桶緝犯",
+  };
+  return titles[path] ?? "待辦｜桶緝犯";
+}
+
+// 鍵盤使用者跳過頁首；各頁的 <main> 沒有 id，直接找第一個 main 聚焦
+function skipToMain(e: MouseEvent) {
+  const main = document.querySelector("main");
+  if (!main) return;
+  e.preventDefault();
+  main.tabIndex = -1;
+  main.focus();
+}
+
 export default function App() {
   // /b 開頭一律是市民端：QR Code 網址多一個斜線或少了編號，也不能讓市民進到管理端
   const bin = /^\/b(\/|$)/i.test(location.pathname);
@@ -32,13 +60,19 @@ export default function App() {
   const finder = location.pathname === "/map";
   const trash = location.pathname === "/trash";
   const entry = location.pathname === "/entry";
+  useEffect(() => { document.title = pageTitle(location.pathname, binId); }, [binId]);
   return (
     <>
+      <a className="skip" href="#main" onClick={skipToMain}>跳到主要內容</a>
       <header className="bar">
-        {/* 每一頁的「桶緝犯」都回到入口站 */}
-        <a href="/entry" className="brand"><LogoMark />桶緝犯</a>
+        {/* 每一頁的「桶緝犯」都回到入口站；入口站自己有大標誌，頁首改放頁內導覽 */}
+        {!entry && <a href="/entry" className="brand"><LogoMark />桶緝犯</a>}
         {entry ? (
-          <span className="nav" />
+          <nav className="nav" aria-label="本頁">
+            <a href="#flow">試一次</a>
+            <a href="#goal">目標</a>
+            <a href="#refs">資料來源</a>
+          </nav>
         ) : bin || finder || trash ? (
           <nav className="nav" aria-label="市民端">
             <a href="/map" aria-current={finder ? "page" : undefined}>地圖找桶</a>
@@ -46,7 +80,7 @@ export default function App() {
           </nav>
         ) : (
           <nav className="nav" aria-label="管理端">
-            <a href="/" aria-current={location.pathname === "/" ? "page" : undefined}>待辦</a>
+            <a href="/admin" aria-current={location.pathname === "/admin" ? "page" : undefined}>待辦</a>
             <a href="/status" aria-current={dashboard ? "page" : undefined}>清潔狀態</a>
             <a href="/bins" aria-current={binsPage ? "page" : undefined}>桶一覽</a>
           </nav>

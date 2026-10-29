@@ -114,7 +114,7 @@ export default function Dashboard() {
   const renderDistrict = (row: (typeof rows)[number]) => {
     const unfinished = row.open + row.assigned;
     return (
-      <a key={row.name} className="district-row" href={`/?district=${encodeURIComponent(row.name)}`}>
+      <a key={row.name} className="district-row" href={`/admin?district=${encodeURIComponent(row.name)}`}>
         <b>{row.name}</b>
         <span className="bar-track" aria-hidden="true">
           <i style={{ width: `${(unfinished / maxUnfinished) * 100}%` }} />
@@ -202,7 +202,7 @@ export default function Dashboard() {
             )}
           </div>
           {cases && pending.length === 0 && (
-            <p className="muted">目前沒有待清潔的案件。到<a href="/">待辦</a>按「模擬感測器」，或用市民回報頁建立案件。</p>
+            <p className="muted">目前沒有待清潔的案件。到<a href="/admin">待辦</a>按「模擬感測器」，或用市民回報頁建立案件。</p>
           )}
           <div className="cases-box">
             <ul className="cases">
@@ -212,7 +212,7 @@ export default function Dashboard() {
                 const waited = minutesSince(c.opened_at);
                 return (
                   <li key={c.id} className={c.status}>
-                    <a href={`/?district=${encodeURIComponent(district)}&bin=${c.bin_id}`}>
+                    <a href={`/admin?district=${encodeURIComponent(district)}&bin=${c.bin_id}`}>
                       <b className="case-id">#{c.id} {c.status === "open" ? "待處理" : "已指派"}</b>
                       <span className="case-where">{bin ? `${bin.properties.district} ${bin.properties.address}` : `桶 #${c.bin_id}`}</span>
                       <span className="badges">
@@ -232,7 +232,7 @@ export default function Dashboard() {
           </div>
           {pending.length > LIST_HINT_OVER && (
             <p className="muted list-more">
-              共 {pending.length} 筆未完成，<a href="/">到待辦看全部 →</a>
+              共 {pending.length} 筆未完成，<a href="/admin">到待辦看全部 →</a>
             </p>
           )}
         </section>

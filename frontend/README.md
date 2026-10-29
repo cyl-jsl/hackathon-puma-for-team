@@ -4,7 +4,8 @@ Vite + React + MapLibre GL（@vis.gl/react-maplibre）。前端 Worker `tongjifa
 
 | 路由 | 畫面 | 程式 |
 |---|---|---|
-| `/` | 管理端：地圖、待辦、模擬感測器 | `src/admin/Admin.tsx` |
+| `/` | 導向 `/entry`（帶 `?bin=`、`?district=` 的導向 `/admin`） | `src/App.tsx` |
+| `/admin` | 管理端：地圖、待辦、模擬感測器 | `src/admin/Admin.tsx` |
 | `/status` | 管理端：各區清潔狀態 | `src/admin/Dashboard.tsx` |
 | `/bins` | 管理端：桶一覽（使用強度） | `src/admin/Bins.tsx` |
 | `/b/<桶編號>` | 市民回報頁（QR Code 網址） | `src/citizen/Citizen.tsx` |

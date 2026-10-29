@@ -103,17 +103,18 @@ sequenceDiagram
 
 | 路徑 | 畫面 | 程式 | 載入 | 輪詢 |
 |---|---|---|---|---|
-| `/` | 管理端：地圖、待辦、模擬感測器、建議增設圖層 | `src/admin/Admin.tsx` | `React.lazy`（含 MapLibre） | `GET /api/cases`，2 秒 |
+| `/` | 導向 `/entry`；帶 `?bin=` 或 `?district=` 的舊管理端網址導向 `/admin`，參數照帶 | `src/App.tsx` | － | － |
+| `/admin` | 管理端：地圖、待辦、模擬感測器、建議增設圖層 | `src/admin/Admin.tsx` | `React.lazy`（含 MapLibre） | `GET /api/cases`，2 秒 |
 | `/status` | 管理端：各區清潔狀態 | `src/admin/Dashboard.tsx` | `React.lazy` | `GET /api/cases`，2 秒 |
 | `/bins` | 管理端：桶一覽，依使用強度篩選。預設只列容易滿（一週升過 80% 至少 3 次）。次數由桶編號決定，不看當下案件 | `src/admin/Bins.tsx` | `React.lazy` | 無 |
 | `/map` | 市民端：地圖找桶、點桶回報 | `src/citizen/BinMap.tsx` | `React.lazy`（含 MapLibre） | `GET /api/cases`，5 秒 |
 | `/trash` | 市民端：家用垃圾收受指引 | `src/citizen/Trash.tsx` | `React.lazy`（含 `data/trucks.json`）。小地圖另 lazy，按了才載入 MapLibre | 無 |
-| `/entry` | 入口站：市民與管理端各頁的連結、產品故事與資料來源；各頁頂欄的「桶緝犯」都連到這裡 | `src/entry/Entry.tsx` | `React.lazy`（標題字型 Huninn 進到這頁才向 Google Fonts 載入） | 無 |
+| `/entry` | 入口站：市民與管理端各頁的連結、產品故事、試玩與資料來源；各頁頂欄的「桶緝犯」都連到這裡。試玩桶每個分頁隨機挑一個，存在 sessionStorage 的 `trial-bin` | `src/entry/Entry.tsx` | `React.lazy`（標題字型 Huninn 進到這頁才向 Google Fonts 載入） | 無 |
 | `/b/<桶編號>` | 市民回報頁（QR Code 網址）；回報後網址加上 `?case=<案件編號>` 顯示進度 | `src/citizen/Citizen.tsx` | 打包進主程式，不載入地圖 | 回報後 `GET /api/cases/:id` 與 `GET /api/cases`，2 秒；案件完成或 404 就停止 |
 
 `/b` 開頭的路徑一律是市民端，沒有桶編號（例如 `/b/`）時請市民重新掃描 QR Code，不會進到管理端。`?case=` 不屬於網址上的桶時，回到這個桶的回報畫面。
 
-管理端網址可以帶 `?bin=<桶編號>`、`?district=<行政區>` 預先選桶與行政區。
+管理端網址 `/admin` 可以帶 `?bin=<桶編號>`、`?district=<行政區>` 預先選桶與行政區。其他不認得的路徑仍然顯示管理端。
 
 ## API
 
