@@ -7,6 +7,7 @@ import "./entry.css";
 
 // vite.config.ts 在 build 時數 data/trucks.json 的停靠點數注入，重跑 etl/trucks.py 後不用改這裡
 declare const __TRUCK_STOPS__: number;
+declare const __BUILD__: { short: string };
 const TRUCK_STOPS = __TRUCK_STOPS__;
 const DISTRICTS = new Set(BINS.map((b) => b.properties.district)).size;
 const fmt = (n: number) => n.toLocaleString("zh-TW");
@@ -201,16 +202,19 @@ export default function Entry() {
             <Go href="/map" title="地圖找桶">{`開放資料的 ${fmt(BINS.length)} 個行人垃圾桶，找離你最近的一個`}</Go>
             <Go href="/trash" title="家用垃圾">{`${fmt(TRUCK_STOPS)} 個垃圾車停靠點與 ${itrash.length} 個 iTrash 站，查最近的時間和地點`}</Go>
             <div className="sticker">
-              <span className="qr" aria-hidden="true"><i /></span>
+              {/* 真的可以掃：這張就是試玩桶的 QR Code，桌機上拿手機掃就能試 */}
+              <Qr url={location.origin + binUrl} />
               <p><b>桶滿了、很髒？</b></p>
-              <p>掃桶身上的 QR Code 回報。想先看看：<a href={binUrl}>開啟桶 {trial} 的回報頁</a></p>
+              <p>掃桶上的 QR Code 回報。這張就是桶 {trial} 的，掃描或<Ext href={binUrl}>開啟回報頁</Ext>都能試。</p>
             </div>
           </section>
           <section className="chute staff" aria-labelledby="h-staff">
-            <div className="slot"><h3 id="h-staff">管理端</h3><span>清潔隊的畫面，開放試用</span></div>
+            <div className="slot"><h3 id="h-staff">管理端</h3><span>清潔隊的畫面</span></div>
             <Go href="/admin" title="待辦">市民回報與感測器通報，在這裡指派、結案</Go>
             <Go href="/status" title="清潔狀態">{`${DISTRICTS} 個行政區的桶況與一週滿溢趨勢`}</Go>
             <Go href="/bins" title="桶一覽">每個桶的編號、地址與感測器數值</Go>
+            {/* 「開放試用」標籤和資料集的「範例資料」同一種膠囊，標示不是真實資料；也補齊兩格的高度差 */}
+            <p className="demo-note"><b>開放試用</b>案件、感測器數值與一週趨勢都是模擬資料，任何人都能指派、結案，不會影響真實清運。</p>
           </section>
         </div>
       </nav>
@@ -247,7 +251,7 @@ export default function Entry() {
               <p>桶內感測器負責看滿溢，市民負責看感測器看不到的髒亂、損壞。兩邊進同一張待辦，同一個桶還沒處理完的回報併成一件，不會重複派工。</p>
             </div>
             <div className="idea">
-              <h3><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M10 10h20l-2 24H12z" /><path className="fill" d="M12.6 18h14.8l-1.3 16H13.9z" /><path d="M8 10h24M17 6h6" /></svg>滿了才派人，但不只信感測器</h3>
+              <h3><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M10 10h20l-2 24H12z" /><path className="fill" d="M12.6 18h14.8l-1.3 16H13.9z" /><path d="M8 10h24M17 6h6" /></svg>滿了才派人，<span className="nobr">但不只信感測器</span></h3>
               <p>
                 桃園慈湖 20 組桶用「8 分滿才通知」，市府自述清運人力減少 50%<Ref n={4} />。臺北 112 年也試過，因為蓬鬆垃圾頻繁誤判而沒有採用<Ref n={3} />。所以感測器只是第一道訊號，市民回報與清運結案的紀錄用來交叉校正。
               </p>
@@ -290,9 +294,9 @@ export default function Entry() {
         </section>
 
         <section className="goal" id="goal" aria-labelledby="s-goal">
-          <h2 id="s-goal">最終目標：補上缺少的<mark>行人垃圾桶即時滿溢資料集</mark></h2>
+          <h2 id="s-goal">最終目標：補上缺少的<mark><span className="nobr">行人垃圾桶</span>即時滿溢資料集</mark></h2>
           <p>
-            目前所有公開的桶位清冊都只有位置，沒有任何開放資料記錄桶的滿溢狀態<Ref n={2} />。桶緝犯把每一次感測器通報、市民回報和清運結案都寫成一筆紀錄，累積下來，就能回答哪個桶多久滿一次、滿了多久才有人收。有了這份資料，設桶、撤桶和清運路線才能用數據討論，為智慧城市的清運治理補上一塊基礎。
+            目前所有公開的桶位清冊都只有位置，沒有任何開放資料記錄桶的滿溢狀態<Ref n={2} />。桶緝犯把每一次感測器通報、市民回報和清運結案都寫成一筆紀錄，累積下來，就能回答哪個桶多久滿一次、滿了多久才有人收。有了這份資料，設桶、撤桶和清運路線才能用數據討論。
           </p>
           <div className="dataset">
             <div className="ds-head"><h3>臺北市行人垃圾桶即時滿溢資料集</h3><span>規劃中，試點後產生</span></div>
@@ -372,7 +376,7 @@ export default function Entry() {
                 <b>臺北市垃圾車點位路線：4,012 點，含停靠時刻</b>
                 <span><Ext href="https://data.taipei/dataset/detail?id=6bb3304b-4f46-4bb0-8cd1-60c66dcd1cae">環保局，data.taipei</Ext>；本站轉檔時剔除欄位不完整的資料，保留 {fmt(TRUCK_STOPS)} 點</span>
               </div>
-              <em>A</em>
+              <em>A · 部分確認</em>
               <Back n={5} />
             </li>
             <li id="r6">
@@ -384,12 +388,15 @@ export default function Entry() {
               <Back n={6} />
             </li>
           </ol>
-          <p className="src">以上整理自議題研究知識庫 the-wanted-can-wiki 的來源卡。回報、案件與感測器數值為測試資料。</p>
+          <p className="src">以上整理自我們的議題研究筆記（目前未公開）。</p>
         </section>
 
         <footer className="foot">
           <span>黑客松「市長，你給我聽好了」題目 #2 找回消失的垃圾桶</span>
+          <a href="#flow">回到試玩</a>
           <Ext href="https://github.com/cyl-jsl/hackathon-puma-for-team">GitHub 原始碼</Ext>
+          {/* 手機的頁首不放版號，改放這裡 */}
+          <span className="foot-ver">版本 {__BUILD__.short}</span>
         </footer>
       </div>
     </main>

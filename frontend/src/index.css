@@ -47,6 +47,7 @@ button:disabled { opacity: 0.5; }
 /* 部署版號：字小色淡，不搶品牌和導覽；窄螢幕只留短 SHA */
 .version { font: 11px ui-monospace, SFMono-Regular, Menlo, monospace; color: #ffffff80; white-space: nowrap; }
 .tag { font-size: 12px; background: var(--yellow); color: var(--ink); padding: 2px 8px; border-radius: 6px; }
+.tag-short { display: none; }
 .muted { color: var(--muted); font-size: 13px; }
 /* 只給螢幕閱讀器的文字 */
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
@@ -316,6 +317,10 @@ main:focus { outline: none; }
   /* 版號留在品牌那一行的右側，模擬資料標籤換到下一行，頁首不會因版號多一行 */
   .version-time { display: none; }
   .bar .tag { order: 1; }
+  /* 入口站：標籤縮短、版號移到頁尾，頁首只剩一行，入口早一點露出來 */
+  .entry-bar .tag { order: 0; }
+  .entry-bar .tag-long, .entry-bar .version { display: none; }
+  .entry-bar .tag-short { display: inline; }
   .admin { grid-template-columns: 1fr; grid-template-rows: 50vh auto; height: auto; }
   .panel { border-left: 0; }
   .dashboard { height: auto; }

@@ -64,7 +64,7 @@ export default function App() {
   return (
     <>
       <a className="skip" href="#main" onClick={skipToMain}>跳到主要內容</a>
-      <header className="bar">
+      <header className={entry ? "bar entry-bar" : "bar"}>
         {/* 每一頁的「桶緝犯」都回到入口站；入口站自己有大標誌，頁首改放頁內導覽 */}
         {!entry && <a href="/entry" className="brand"><LogoMark />桶緝犯</a>}
         {entry ? (
@@ -85,7 +85,8 @@ export default function App() {
             <a href="/bins" aria-current={binsPage ? "page" : undefined}>桶一覽</a>
           </nav>
         )}
-        <span className="tag">模擬資料：回報、案件與感測器數值皆為測試資料；桶位為臺北市開放資料</span>
+        {/* 入口站的手機版只留「模擬資料」四個字，完整說明在頁內的「開放試用」框 */}
+        <span className="tag"><span className="tag-long">模擬資料：回報、案件與感測器數值皆為測試資料；桶位為臺北市開放資料</span><span className="tag-short">模擬資料</span></span>
         <Version />
       </header>
       {bin ? (
