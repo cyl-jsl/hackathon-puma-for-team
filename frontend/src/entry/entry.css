@@ -228,6 +228,18 @@
 .uses span { font-size: 14px; line-height: 1.7; color: #d5dade; }
 @container (max-width: 560px) { .uses { grid-template-columns: 1fr; } }
 
+/* 未來需要的資源：沿用設計理念的左右兩欄，右欄改成條列 */
+.needs ul { display: grid; gap: 8px; max-width: 40em; margin: 0; padding: 0; list-style: none; }
+.needs li { font-size: 15px; line-height: 1.7; color: var(--muted); }
+.needs li b { margin-right: 8px; font-weight: 700; color: var(--ink); }
+.cost { display: grid; gap: 12px; max-width: 40em; }
+.cost .cost-sum { display: flex; flex-wrap: wrap; gap: 8px 28px; color: var(--ink); }
+.cost-sum span { display: grid; gap: 2px; font-size: 13px; color: var(--muted); }
+.cost-sum b { font-family: var(--display); font-weight: 400; font-size: 26px; line-height: 1.2; color: var(--ink); font-variant-numeric: tabular-nums; box-shadow: inset 0 -.3em 0 var(--yellow); justify-self: start; }
+.needs .idea h3 { align-items: start; }
+.needs-sub { font-size: 22px; }
+.plan { margin: 0; padding: 0; list-style: none; }
+
 /* 資料來源 */
 .refs { display: grid; margin: 0; padding: 0; list-style: none; counter-reset: r; border-top: 2px solid var(--ink); }
 .refs li { counter-increment: r; display: grid; grid-template-columns: 28px 1fr auto; align-items: start; gap: 4px 14px; padding: 12px 0; border-bottom: 1px solid var(--line); scroll-margin-top: 72px; }

@@ -342,6 +342,80 @@ export default function Entry() {
           </ul>
         </section>
 
+        {/* 未來需要的資源（Demo 審核要件第 3 項），內容整理自 未來資源需求_草稿.md 與 research/臺北市標案研究.md，改了要一起改 */}
+        <section className="sec" id="needs" aria-labelledby="s-needs">
+          <h2 id="s-needs">要上路，還需要哪些資源</h2>
+          <p>
+            桶緝犯不是另一套要編錢買的智慧桶，而是讓環保局既有 806 組桶與清潔隊派工更準的軟體層。臺北 105 年後沒有再買過清潔箱，清潔箱一年只編 40 萬元維護費<Ref n={7} />；112 年試過滿溢感測，因誤判沒有採用<Ref n={3} />。所以先做市民回報加派工、建立清運基準，感測器放到第二階段。
+          </p>
+          <div className="ideas needs">
+            <div className="idea">
+              <h3>經費（試點 20 組）</h3>
+              <div className="cost">
+                <p className="cost-sum">
+                  <span><b>0 元</b>桶身，用既有的桶</span>
+                  <span><b>約 37–161 萬元／年</b>回報與派工系統維運</span>
+                  <span><b>約 77–80 萬元／年</b>第二階段：20 組滿溢感測服務</span>
+                </p>
+                <p>
+                  系統維運的上緣取自「1999 派工系統後續擴充」決標 161 萬元，下緣是環保局小型系統維護案約 37 萬元<Ref n={8} />。感測服務參考桃園：本約加後續擴充決標合計 320 萬元、約 12 個月、83 組，每組每年約 3.86 萬元<Ref n={9} />。桃園三個案子都只有一家投標，沒有比價基礎；以上區間是推算，不是臺北的決標價。若有新設點，臺北過去的桶身決標單價每組約 1.1 萬元<Ref n={7} />。
+                </p>
+              </div>
+            </div>
+            <div className="idea">
+              <h3>採購路徑</h3>
+              <ul>
+                <li><b>第一階段</b>智慧城市專案辦公室（TPMO）PoC：市府提供場域、不出錢，也沒有採購義務</li>
+                <li><b>第二階段</b>只做回報加派工，總額壓在 150 萬元以下，走採購法第 49 條公開取得<Ref n={10} /></li>
+                <li><b>第三階段</b>加上感測服務、超過 150 萬元，要先編進預算再公開評選。116 年度預算已在議會審議，最早是 117 年度（2028）<Ref n={10} /></li>
+                <li><b>契約型態</b>買服務、不買設備：以年計價的勞務契約，附後續擴充，電池、斷線、破壞的風險由廠商承擔</li>
+              </ul>
+            </div>
+            <div className="idea">
+              <h3>局處協作</h3>
+              <ul>
+                <li><b>環保局（主責）</b>環境清潔管理科督導並提供資料；區清潔隊試用派工；直屬清潔隊負責加裝與修護</li>
+                <li><b>資訊局</b>智慧城市專案辦公室媒合 PoC；資安分級、雲端共同供應契約；之後是否接台北通</li>
+                <li><b>研考會</b>1999 派工資料，以及是否把清潔箱新增為派工項目</li>
+                <li><b>臺北捷運公司、公園處、市場處</b>各自場域的垃圾桶；環保局已表示會和北捷討論捷運站設桶<Ref n={1} /></li>
+              </ul>
+            </div>
+            <div className="idea">
+              <h3>資料</h3>
+              <ul>
+                <li><b>清運紀錄</b>未公開；試點桶的每週清運趟數是成效基準，沒有它就無法證明省了多少</li>
+                <li><b>清潔箱清冊</b>開放資料沒有箱號；需要含箱號、設置與撤除日期、撤除原因的最新清冊</li>
+                <li><b>1999 派工</b>開放資料有案件地址，但只能讀；要確認有沒有清潔箱類別</li>
+                <li><b>設桶撤桶標準</b>舊的作業程序 111 年停止適用，現行標準沒有公開</li>
+              </ul>
+            </div>
+            <div className="idea">
+              <h3>提案與推廣</h3>
+              <ul>
+                <li><b>議會</b>議員跨黨派反對只撤不補，委員會已要求環保局提出「行人垃圾桶設置規劃」專案報告<Ref n={11} /></li>
+                <li><b>參與式預算</b>各區住民大會提案，每年 6 月全市 i-Voting</li>
+                <li><b>桶身 QR Code</b>掃描即可回報，不用下載 App、不用登入</li>
+                <li><b>處理完畢推播</b>現在要開著回報頁才收得到通知；要關掉頁面也收得到，需要 Web Push 與發送推播的後端</li>
+                <li><b>開源</b>原始碼公開在 GitHub，其他縣市可以沿用</li>
+              </ul>
+            </div>
+            <div className="idea">
+              <h3>要先釐清</h3>
+              <ul>
+                <li><b>是否重疊</b>環保局預定 115 年試辦太陽能壓縮式清潔箱<Ref n={3} />，智慧城市專案辦公室也列過一件清潔箱數位轉型計畫；兩者的現況都查不到。若已有硬體試辦，桶緝犯就當它的回報與派工層</li>
+                <li><b>資安與雲端</b>系統目前架在 Cloudflare，正式採購前要確認資安等級與市府對境外雲端的規定</li>
+              </ul>
+            </div>
+          </div>
+          <h3 className="needs-sub">100 天試點</h3>
+          <ol className="scenes plan">
+            <li className="scene"><h3>第 1–30 天</h3><p>和環保局、智慧城市專案辦公室確認有沒有重疊的試辦；申請 PoC、選定熱點，索取清運紀錄並量測基準。</p></li>
+            <li className="scene"><h3>第 31–60 天</h3><p>試點桶貼上 QR Code，清潔隊用待辦派工、結案。系統上線。</p></li>
+            <li className="scene"><h3>第 61–100 天</h3><p>比較試點前後的清運趟數、回報到結案的時間與家用垃圾塞入情況，決定是否進入正式採購。</p></li>
+          </ol>
+          <p><b>退場條件</b>：清運趟數沒有減少，或家用垃圾塞入明顯增加，就停止擴大、調整設計。</p>
+        </section>
+
         <section className="sec" id="refs" aria-labelledby="s-refs">
           <h2 id="s-refs">資料來源</h2>
           <p className="src">分級：A 官方一手資料、B 主流媒體或廠商官方資料。「已交叉確認」表示關鍵主張有獨立來源佐證；「部分確認」表示仍有主張只有單一來源。</p>
@@ -394,14 +468,55 @@ export default function Entry() {
               <em>B · 部分確認</em>
               <Back n={6} />
             </li>
+            <li id="r7">
+              <div>
+                <b>臺北清潔箱：最後一次採購是 105 年 1,500 組、決標 1,620 萬元；113–115 年度清潔箱只編維護費 40 萬元</b>
+                <span><Ext href="https://pcc-api.openfun.app/api/tender?unit_id=3.79&job_number=1050401P0013">政府電子採購網決標公告 1050401P0013（g0v 鏡像）</Ext>；<Ext href="https://www-ws.gov.taipei/001/Upload/363/relfile/10123/9463901/f19a0421-df6d-4a57-abe7-bd0ea031a86a.pdf">環保局 115 年度預算案</Ext></span>
+              </div>
+              <em>A · 部分確認</em>
+              <Back n={7} />
+            </li>
+            <li id="r8">
+              <div>
+                <b>系統維運行情：資訊局「1999 派工系統後續擴充」決標 161 萬元；環保局小型系統維護案約 37–39 萬元</b>
+                <span><Ext href="https://www.taiwanbuying.com.tw/ShowOrgYearClose.ASP?OrgID=19078&Y=2024">資訊局 2024 決標列表（第三方整理）</Ext>；<Ext href="https://pcc.mlwmlw.org/unit/臺北市政府環境保護局">環保局標案列表（g0v 鏡像）</Ext>，後者未標明預算或決標</span>
+              </div>
+              <em>B · 部分確認</em>
+              <Back n={8} />
+            </li>
+            <li id="r9">
+              <div>
+                <b>桃園小型智慧垃圾桶：本約與後續擴充各決標 160 萬元，都只有一家投標；83 組，感應模組年租約 4 萬元</b>
+                <span><Ext href="https://pcc-api.openfun.app/api/tender?unit_id=3.80.15.4&job_number=1140041051">決標公告 1140041051（g0v 鏡像）</Ext>；<Ext href="https://udn.com/news/story/7266/9143538">聯合報，2025-11-17</Ext>；年租未寫明是每組還是全部</span>
+              </div>
+              <em>A · 部分確認</em>
+              <Back n={9} />
+            </li>
+            <li id="r10">
+              <div>
+                <b>採購公告金額 150 萬元；直轄市總預算要在會計年度開始前 3 個月送議會</b>
+                <span><Ext href="https://lawbid.gov.taipei/bidnet/upload/news/20221223g4xn3981xy.pdf">工程會門檻修正總說明，112 年起</Ext>；<Ext href="https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=A0040003&flno=40">地方制度法第 40 條</Ext></span>
+              </div>
+              <em>A · 已交叉確認</em>
+              <Back n={10} />
+            </li>
+            <li id="r11">
+              <div>
+                <b>議會警政衛生委員會跨黨派質疑撤桶，要求環保局提出「行人垃圾桶設置規劃」專案報告</b>
+                <span><Ext href="https://news.ltn.com.tw/news/Taipei/breakingnews/5512431">自由時報，2026-07-21</Ext>；<Ext href="https://udn.com/news/story/7323/9641642">聯合報，2026-07-21</Ext></span>
+              </div>
+              <em>B · 已交叉確認</em>
+              <Back n={11} />
+            </li>
           </ol>
-          <p className="src">以上整理自我們的議題研究筆記（目前未公開）。</p>
+          <p className="src">1–6 整理自我們的議題研究筆記（目前未公開）；7–11 出自<Ext href="https://github.com/cyl-jsl/hackathon-puma-for-team/blob/main/research/臺北市標案研究.md">臺北市標案研究</Ext>，每筆金額都標明是預算還是決標。</p>
         </section>
 
         <footer className="foot">
           <span>黑客松「市長，你給我聽好了」題目 #2 找回消失的垃圾桶</span>
           <a href="#start">回到入口</a>
           <a href="#flow">回到試玩</a>
+          <a href="#needs">所需資源</a>
           <Ext href="https://github.com/cyl-jsl/hackathon-puma-for-team">GitHub 原始碼</Ext>
           {/* 手機的頁首不放版號，改放這裡 */}
           <span className="foot-ver">版本 {__BUILD__.short}</span>
