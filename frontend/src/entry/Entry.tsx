@@ -346,7 +346,7 @@ export default function Entry() {
         <section className="sec" id="needs" aria-labelledby="s-needs">
           <h2 id="s-needs">要上路，還需要哪些資源</h2>
           <p>
-            桶緝犯不是另一套要編錢買的智慧桶，而是讓環保局既有 806 組桶與清潔隊派工更準的軟體層。臺北 105 年後沒有再買過清潔箱，清潔箱一年只編 40 萬元維護費<Ref n={7} />；112 年試過滿溢感測，因誤判沒有採用<Ref n={3} />。所以先做市民回報加派工、建立清運基準，感測器放到第二階段。
+            桶緝犯不是另一套要編錢買的智慧桶，而是讓環保局既有 806 組桶與清潔隊派工更準的軟體層。105 年度之後，環保局預算書沒有編列清潔箱購置費、採購網也查不到購置案，清潔箱一年只編 40 萬元維護費<Ref n={7} />；112 年試過滿溢感測，因誤判沒有採用<Ref n={3} />。所以先做市民回報加派工、建立清運基準，感測器放到第二階段。
           </p>
           <div className="ideas needs">
             <div className="idea">
@@ -470,7 +470,7 @@ export default function Entry() {
             </li>
             <li id="r7">
               <div>
-                <b>臺北清潔箱：最後一次採購是 105 年 1,500 組、決標 1,620 萬元；113–115 年度清潔箱只編維護費 40 萬元</b>
+                <b>臺北清潔箱：採購網查得到的最後一次購置是 105 年度 1,500 組、決標 1,620 萬元；106–116 年度預算書沒有購置費，只編維護費 40–45 萬元</b>
                 <span><Ext href="https://pcc-api.openfun.app/api/tender?unit_id=3.79&job_number=1050401P0013">政府電子採購網決標公告 1050401P0013（g0v 鏡像）</Ext>；<Ext href="https://www-ws.gov.taipei/001/Upload/363/relfile/10123/9463901/f19a0421-df6d-4a57-abe7-bd0ea031a86a.pdf">環保局 115 年度預算案</Ext></span>
               </div>
               <em>A · 部分確認</em>
