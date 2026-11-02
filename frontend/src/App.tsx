@@ -71,6 +71,7 @@ export default function App() {
           <nav className="nav" aria-label="本頁">
             <a href="#flow">試一次</a>
             <a href="#goal">目標</a>
+            <a href="#needs">所需資源</a>
             <a href="#refs">資料來源</a>
           </nav>
         ) : bin || finder || trash ? (
