@@ -159,12 +159,45 @@ sequenceDiagram
 
 桶位開放資料的每一筆是座標點，不是桶數，同一地點可能有好幾筆；只能拿來看位置，不要加總成「臺北有幾個桶」。數量請引用官方數字並註明單位（一組兩座），各年份與單位的整理見 [臺北行人清潔箱數量摘要](https://data.bin.ianwu.net/)。
 
+## 可觀測性
+
+| 來源 | 量到什麼 | 保留 |
+|---|---|---|
+| UptimeRobot（外部探測） | 每 5 分鐘打首頁與 `GET /api/health`，失敗寄 Email | 依 UptimeRobot Free 方案 |
+| Workers Analytics Engine，dataset `tongjifan_sli` | 後端每個 API 請求的路由、狀態碼、耗時、D1 讀取列數 | 3 個月 |
+| Workers Logs（`observability`） | `console.*` 與例外 | Free 方案 3 天 |
+
+後端每個請求寫一個資料點（`backend/src/sli.ts`），欄位上線後不改順序：
+
+| 欄位 | 內容 |
+|---|---|
+| `index1`、`blob1` | 路由，路徑上的編號換成 `:id`，例如 `GET /api/cases/:id`；不認得的路徑記成 `other` |
+| `double1` | HTTP 狀態碼；丟出例外記 500 |
+| `double2` | 耗時（ms），Worker 收到請求到產生回應，含等 D1 的時間 |
+| `double3` | 這個請求在 D1 讀了幾列（各查詢 `meta.rows_read` 加總） |
+| `double4` | 權重。成功的 `GET /api/cases` 每 10 筆只記 1 筆、權重 10，其他一律權重 1 |
+
+Free 方案每天能寫 10 萬個資料點；一個管理端分頁輪詢一天約 43,200 次，全記會用掉 43%，所以只抽樣成功的列表輪詢，錯誤一律全記。Analytics Engine 自己也可能抽樣，算總數時要乘上 `_sample_interval`：
+
+```sql
+SELECT blob1 AS route,
+  SUM(_sample_interval * double4) AS requests,
+  SUM(IF(double1 >= 500, _sample_interval * double4, 0)) AS errors_5xx,
+  SUM(_sample_interval * double4 * double3) AS rows_read
+FROM tongjifan_sli
+WHERE timestamp > NOW() - INTERVAL '1' DAY
+GROUP BY route
+ORDER BY requests DESC
+```
+
+查詢走 [SQL API](https://developers.cloudflare.com/analytics/analytics-engine/sql-api/)：`POST /accounts/<帳號 ID>/analytics_engine/sql`，body 直接放 SQL，token 要有 Account Analytics 讀取權限。
+
 ## 部署
 
 | Worker | 資料夾 | 網址 | 綁定 |
 |---|---|---|---|
 | `tongjifan`（前端） | `frontend/` | https://tongjifan.ccyisyourbestfriend.workers.dev | `API` → `tongjifan-api` |
-| `tongjifan-api`（後端） | `backend/` | 沒有公開網址（`workersDev: false`），只經由前端轉發 | `DB` → D1 `tongjifan` |
+| `tongjifan-api`（後端） | `backend/` | 沒有公開網址（`workersDev: false`），只經由前端轉發 | `DB` → D1 `tongjifan`；`SLI` → Analytics Engine `tongjifan_sli` |
 
 - 前端設定 `assets.notFoundHandling: "single-page-application"` 與 `assets.runWorkerFirst: ["/api/*"]`：`/api/*` 進前端 Worker，由它 `env.API.fetch(req)` 原樣轉給後端，其餘路由回傳前端檔案（[Static Assets 路由](https://developers.cloudflare.com/workers/static-assets/routing/single-page-application/)）。
 - 設定檔是各資料夾的 `cloudflare.config.ts`（`cf` 的 TypeScript 格式，不是 `wrangler.jsonc`）。`cf` 是 beta，D1 migrations 與 Wrangler 相容。

@@ -12,6 +12,8 @@ export default defineConfig({
 		previewUrls: false,
 		env: {
 			DB: bindings.d1({ id: "b768b5e7-71b4-4ef5-88a5-1ce2d69085c3", name: "tongjifan" }),
+			// SLI 資料點，欄位見 src/sli.ts；dataset 在第一次寫入時自動建立
+			SLI: bindings.analyticsEngineDataset({ name: "tongjifan_sli" }),
 		},
 	},
 });
