@@ -6,7 +6,8 @@ export default defineConfig({
 		name: "tongjifan-api",
 		compatibilityDate: "2026-09-25",
 		entrypoint,
-		observability: { enabled: true },
+		// issues：例外、5xx、console.error 會記成 Issue，再由 dashboard 的 automation 通知 Discord
+		observability: { enabled: true, issues: { enabled: true } },
 		// 只經由前端的 service binding 呼叫，不開 workers.dev 與預覽網址
 		workersDev: false,
 		previewUrls: false,
