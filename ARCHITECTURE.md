@@ -166,6 +166,7 @@ sequenceDiagram
 | UptimeRobot（外部探測） | 每 5 分鐘打首頁與 `GET /api/health`，失敗寄 Email | 依 UptimeRobot Free 方案 |
 | Workers Analytics Engine，dataset `tongjifan_sli` | 後端每個 API 請求的路由、狀態碼、耗時、D1 讀取列數 | 3 個月 |
 | Workers Logs（`observability`） | `console.*` 與例外 | Free 方案 3 天 |
+| Workers Issues（`observability.issues`，beta 免費） | 兩個 Worker 的例外、5xx、`console.error` 聚合成 Issue；dashboard 的 automation 把新 Issue 通知 Discord | 依 Cloudflare 設定 |
 | GitHub Actions `quota-alert`（`ops/quota_check.py`） | 每小時查今天的 Workers 請求、D1 rows read／written，跨過 Free 上限的 70%、90% 時通知 Discord | 不保存，只通知 |
 
 後端每個請求寫一個資料點（`backend/src/sli.ts`），欄位上線後不改順序：
