@@ -1,0 +1,33 @@
+# 每小時檢查 Cloudflare Free 方案的每日額度用量，跨過 70%／90% 時通知 Discord。
+# 跑在 GitHub 而不是 Cloudflare：額度用完時 Cloudflare 上的東西也會一起停。
+# 注意：公開 repo 60 天沒有活動，GitHub 會自動停用排程，要到 Actions 頁面重新啟用。
+name: quota-alert
+
+on:
+  schedule:
+    # 避開整點尖峰，排程常延遲幾分鐘到十幾分鐘
+    - cron: "7 * * * *"
+  workflow_dispatch:
+    inputs:
+      force_notify:
+        description: "沒有超過門檻也發一則測試通知"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: 檢查額度
+        env:
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_ANALYTICS_TOKEN: ${{ secrets.CF_ANALYTICS_TOKEN }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          FORCE_NOTIFY: ${{ inputs.force_notify && '1' || '0' }}
+        # 查詢失敗會讓這次 run 失敗，GitHub 會寄信：監控本身壞了也要知道
+        run: python3 -I ops/quota_check.py
