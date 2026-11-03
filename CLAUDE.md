@@ -71,6 +71,7 @@ main 只接受 PR，一律 Squash merge。`ci`（型別、建置、lint、migrat
    curl -s -w ' %{http_code}\n' -X POST -H 'content-type: application/json' -d '{"bin_id":300,"source":"sensor","kind":"full"}' $U/api/reports    # 新案 201
    curl -s -w ' %{http_code}\n' -X POST -H 'content-type: application/json' -d '{"bin_id":300,"source":"citizen","kind":"dirty"}' $U/api/reports  # 合併 200，同一個 id
    curl -s -w ' %{http_code}\n' -X POST -H 'content-type: application/json' -d '{"bin_id":9999,"source":"citizen","kind":"full"}' $U/api/reports  # 400
+   curl -s -w ' %{http_code}\n' $U/api/health                                                                                                  # 200 {"ok":true}
    curl -s -w ' %{http_code}\n' $U/api/cases/99999                                                                                               # 404
    curl -s -w ' %{http_code}\n' -X PATCH -H 'content-type: application/json' -d '{"status":"assigned"}' $U/api/cases/1                           # 第一次 200，再打一次 409
    ```

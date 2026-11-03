@@ -124,6 +124,7 @@ sequenceDiagram
 | `GET /api/cases` | 選填 `status` | 案件列表，新的在前 | `status` 不是 `open`／`assigned`／`done` 回 400 |
 | `GET /api/cases/:id` | | 單一案件 | 不存在回 404 |
 | `PATCH /api/cases/:id` | `status`（`assigned`／`done`）、選填 `team`（指派的清潔隊，預設「清潔隊」） | 更新後的案件 | `status` 不合法回 400；案件不存在回 404；狀態只能往前走（`open` → `assigned` → `done`，可以從 `open` 直接到 `done`），否則回 409 |
+| `GET /api/health` | | `{"ok":true}`，`cache-control: no-store` | 只執行 `SELECT 1`，不讀業務資料表；D1 失敗（含每日額度用完）回 503 `{"ok":false,"error":"database unavailable"}`。給外部探測用 |
 | `DELETE /api/cases` | | 清空所有案件與回報 | 只在 `localhost` 生效，正式網址回 404 |
 
 **合併規則**：同一個 `bin_id` 已有未完成（`open` 或 `assigned`）的案件時，新回報掛到那個案件上，不另開新案，避免重複派工。

@@ -68,6 +68,20 @@ async function updateCase(req: Request, db: D1Database, id: number) {
   return json(await getCase(db, id));
 }
 
+// 給外部探測用：只跑 SELECT 1，不讀業務資料表，探測再頻繁也幾乎不吃 D1 讀取額度。
+// D1 失敗（包含每日額度用完）回 503，探測端就看得出「Worker 活著但資料庫不能用」。
+async function health(db: D1Database) {
+  const headers = { "cache-control": "no-store" };
+  try {
+    await db.prepare("SELECT 1").first();
+    return Response.json({ ok: true }, { headers });
+  } catch (e) {
+    // 錯誤細節只寫進 Workers Logs，不回給公開的探測請求
+    console.error("health check: D1 failed", e);
+    return Response.json({ ok: false, error: "database unavailable" }, { status: 503, headers });
+  }
+}
+
 // 只給本機開發用：正式網址上的案件可能是隊友正在 Demo 的資料
 const LOCAL_HOSTS = ["localhost", "127.0.0.1"];
 
@@ -81,6 +95,7 @@ export default {
     const url = new URL(req.url);
     const caseMatch = url.pathname.match(/^\/api\/cases\/(\d+)$/);
 
+    if (url.pathname === "/api/health" && req.method === "GET") return health(env.DB);
     if (url.pathname === "/api/reports" && req.method === "POST") return createReport(req, env.DB);
     if (url.pathname === "/api/cases" && req.method === "GET") return listCases(url, env.DB);
     if (url.pathname === "/api/cases" && req.method === "DELETE" && LOCAL_HOSTS.includes(url.hostname)) return clearCases(env.DB);

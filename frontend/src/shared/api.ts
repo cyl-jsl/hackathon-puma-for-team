@@ -45,6 +45,9 @@ export const report = (bin_id: number, source: Source, kind: Kind) =>
 export const advance = (id: number, status: "assigned" | "done") =>
   call<Case>(`/api/cases/${id}`, { method: "PATCH", body: JSON.stringify({ status }) });
 
+// 外部探測用，前端畫面不呼叫；放在這裡讓 API 合約集中在同一個檔案
+export const health = () => call<{ ok: true }>("/api/health");
+
 export const clearCases = () => call<{ ok: true }>("/api/cases", { method: "DELETE" });
 
 // path 改成 null 就停止輪詢，已拿到的 data 與 error 會保留。
