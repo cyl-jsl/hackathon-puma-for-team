@@ -177,18 +177,23 @@ sequenceDiagram
 | `double3` | 這個請求在 D1 讀了幾列（各查詢 `meta.rows_read` 加總） |
 | `double4` | 權重。成功的 `GET /api/cases` 每 10 筆只記 1 筆、權重 10，其他一律權重 1 |
 
+帳號要先啟用 Analytics Engine（Dashboard 的 Storage & databases → Analytics Engine 建一個 dataset 即可），否則帶 `SLI` 綁定的後端部署會失敗，錯誤是 `[10089] You need to enable Analytics Engine`。
+
 Free 方案每天能寫 10 萬個資料點；一個管理端分頁輪詢一天約 43,200 次，全記會用掉 43%，所以只抽樣成功的列表輪詢，錯誤一律全記。Analytics Engine 自己也可能抽樣，算總數時要乘上 `_sample_interval`：
 
 ```sql
 SELECT blob1 AS route,
   SUM(_sample_interval * double4) AS requests,
-  SUM(IF(double1 >= 500, _sample_interval * double4, 0)) AS errors_5xx,
-  SUM(_sample_interval * double4 * double3) AS rows_read
+  SUM(IF(double1 >= 500, _sample_interval * double4, 0.0)) AS errors_5xx,
+  SUM(_sample_interval * double4 * double3) AS rows_read,
+  quantileExactWeighted(0.95)(double2, toUInt32(_sample_interval * double4)) AS p95_ms
 FROM tongjifan_sli
 WHERE timestamp > NOW() - INTERVAL '1' DAY
 GROUP BY route
 ORDER BY requests DESC
 ```
+
+`IF` 的兩個分支型別要一致（`0.0` 而不是 `0`），加權分位數的權重要轉成整數（`toUInt32`），否則 SQL API 回 422。
 
 查詢走 [SQL API](https://developers.cloudflare.com/analytics/analytics-engine/sql-api/)：`POST /accounts/<帳號 ID>/analytics_engine/sql`，body 直接放 SQL，token 要有 Account Analytics 讀取權限。
 
