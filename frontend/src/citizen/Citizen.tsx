@@ -80,7 +80,8 @@ const isDone = (c: Case) => c.status === "done";
 
 // 以 caseId 為 key 掛載：換案件時輪詢資料從頭來，不會沿用上一個案件的狀態
 function Progress({ bin, caseId, onReset }: { bin: Bin; caseId: string; onReset: (notice?: string) => void }) {
-  const [c, , cErr] = usePoll<Case>(`/api/cases/${encodeURIComponent(caseId)}`, 2000, isDone);
+  // 背景每 15 秒還是查一次：開了完成通知的人切到別的 App 時，也要收得到通知
+  const [c, , cErr] = usePoll<Case>(`/api/cases/${encodeURIComponent(caseId)}`, 2000, isDone, 15000);
   const [notify, setNotify] = useState(false);
   const [perm, setPerm] = useState(() => (canNotify ? Notification.permission : "denied"));
   const notified = useRef(false);

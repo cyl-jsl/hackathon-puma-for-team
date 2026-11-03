@@ -95,7 +95,7 @@ sequenceDiagram
 
 市民回報後的進度頁除了自己的案件，也每 2 秒抓完整的案件列表，用來列出附近可以丟的桶（排除有未完成「滿了」「沒有桶」案件的桶）。列表沒有分頁，案件數變多時回應會跟著變大。
 
-**處理完畢通知**：市民在進度頁按「處理完畢時通知我」，頁面註冊 `frontend/public/sw.js` 並請求通知權限；輪詢到案件變成 `done` 時發一次瀏覽器通知。iOS 主畫面網頁 App 與 Android Chrome 只顯示從 Service Worker 發出的通知，所以有註冊時改用 `registration.showNotification()`。`sw.js` 只處理點擊通知回到頁面，沒有 Web Push、不快取任何檔案，頁面要保持開著（可以切到別的分頁）才收得到。
+**處理完畢通知**：市民在進度頁按「處理完畢時通知我」，頁面註冊 `frontend/public/sw.js` 並請求通知權限；輪詢到案件變成 `done` 時發一次瀏覽器通知。iOS 主畫面網頁 App 與 Android Chrome 只顯示從 Service Worker 發出的通知，所以有註冊時改用 `registration.showNotification()`。`sw.js` 只處理點擊通知回到頁面，沒有 Web Push、不快取任何檔案，頁面要保持開著（可以切到別的分頁）才收得到；在背景時進度每 15 秒查一次，所以通知最多晚 15 秒。
 
 ## 前端路由
 
@@ -110,7 +110,9 @@ sequenceDiagram
 | `/map` | 市民端：地圖找桶、點桶回報 | `src/citizen/BinMap.tsx` | `React.lazy`（含 MapLibre） | `GET /api/cases`，5 秒 |
 | `/trash` | 市民端：家用垃圾收受指引 | `src/citizen/Trash.tsx` | `React.lazy`（含 `data/trucks.json`）。小地圖另 lazy，按了才載入 MapLibre | 無 |
 | `/entry` | 入口站：市民與管理端各頁的連結、產品故事、試玩與資料來源；各頁頂欄的「桶緝犯」都連到這裡。試玩桶每個分頁隨機挑一個，存在 sessionStorage 的 `trial-bin` | `src/entry/Entry.tsx` | `React.lazy`（標題字型 Huninn 進到這頁才向 Google Fonts 載入） | 無 |
-| `/b/<桶編號>` | 市民回報頁（QR Code 網址）；回報後網址加上 `?case=<案件編號>` 顯示進度 | `src/citizen/Citizen.tsx` | 打包進主程式，不載入地圖 | 回報後 `GET /api/cases/:id` 與 `GET /api/cases`，2 秒；案件完成或 404 就停止 |
+| `/b/<桶編號>` | 市民回報頁（QR Code 網址）；回報後網址加上 `?case=<案件編號>` 顯示進度 | `src/citizen/Citizen.tsx` | 打包進主程式，不載入地圖 | 回報後 `GET /api/cases/:id` 與 `GET /api/cases`，2 秒；案件完成或 404 就停止。背景時案件改成 15 秒、列表不打 |
+
+輪詢都經 `src/shared/api.ts` 的 `usePoll`：分頁在背景（`document.visibilityState` 不是 `visible`）時不打，回到前景立刻抓一次；只有進度頁的案件在背景改用 15 秒。背景分頁照打的話，一個分頁幾小時就會用完 D1 每日讀取額度，見 `research/sre/08_改善前基準.md`。
 
 `/b` 開頭的路徑一律是市民端，沒有桶編號（例如 `/b/`）時請市民重新掃描 QR Code，不會進到管理端。`?case=` 不屬於網址上的桶時，回到這個桶的回報畫面。
 

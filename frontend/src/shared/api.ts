@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import bins from "../../../data/bins.json";
 
 export type Status = "open" | "assigned" | "done";
@@ -50,35 +50,59 @@ export const health = () => call<{ ok: true }>("/api/health");
 
 export const clearCases = () => call<{ ok: true }>("/api/cases", { method: "DELETE" });
 
+// 分頁是否在前景。切到別的分頁、縮小視窗或手機鎖屏時是 false
+function useVisible() {
+  const [visible, setVisible] = useState(() => document.visibilityState === "visible");
+  useEffect(() => {
+    const onChange = () => setVisible(document.visibilityState === "visible");
+    document.addEventListener("visibilitychange", onChange);
+    return () => document.removeEventListener("visibilitychange", onChange);
+  }, []);
+  return visible;
+}
+
 // path 改成 null 就停止輪詢，已拿到的 data 與 error 會保留。
 // 404 不會自己好，until(data) 成立代表資料不會再變，這兩種情況也停止輪詢；until 要傳模組層級的函式，否則每次 render 都會重新輪詢
-export function usePoll<T>(path: string | null, ms = 2000, until?: (data: T) => boolean) {
+// 分頁在背景時改用 hiddenMs 的間隔，null 就是不打；回到前景時立刻抓一次。
+// 背景分頁照打的話，一個分頁幾小時就會用完 D1 每日讀取額度，見 research/sre/08_改善前基準.md
+export function usePoll<T>(path: string | null, ms = 2000, until?: (data: T) => boolean, hiddenMs: number | null = null) {
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<unknown>(null);
   const [tick, setTick] = useState(0);
+  const visible = useVisible();
+  const interval = visible ? ms : hiddenMs;
+  // 已經停止的輪詢（404 或 until 成立）記下來，切換前景背景時不再重新開始
+  const stopped = useRef<string | null>(null);
   useEffect(() => {
-    if (!path) return;
+    if (!path || interval === null) return;
+    const key = `${path}#${tick}`;
+    if (stopped.current === key) return;
     let alive = true;
+    const stop = () => {
+      stopped.current = key;
+      clearInterval(timer);
+    };
     const load = () =>
       call<T>(path).then(
         (d) => {
           if (!alive) return;
           setData(d);
           setError(null);
-          if (until?.(d)) clearInterval(timer);
+          if (until?.(d)) stop();
         },
         (e) => {
           if (!alive) return;
           setError(e);
-          if (e instanceof HttpError && e.status === 404) clearInterval(timer);
+          if (e instanceof HttpError && e.status === 404) stop();
         },
       );
-    const timer = setInterval(load, ms);
-    load();
+    const timer = setInterval(load, interval);
+    // 剛轉到背景時不用馬上再抓，前景剛拿過資料
+    if (visible) load();
     return () => {
       alive = false;
       clearInterval(timer);
     };
-  }, [path, ms, until, tick]);
+  }, [path, interval, visible, until, tick]);
   return [data, () => setTick((t) => t + 1), error] as const;
 }
